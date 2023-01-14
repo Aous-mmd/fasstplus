@@ -1,0 +1,42 @@
+html,
+body,
+#root,
+.app,
+.content {
+  height: 100%;
+}
+.app {
+  display: flex;
+  position: relative;
+  /* overflow-y: hidden; */
+}
+.stars .MuiRating-iconFilled {
+  color: #faaf00 !important;
+}
+.stars .MuiRating-iconFilled .MuiSvgIcon-root {
+  color: #faaf00 !important;
+}
+.stars .MuiRating-iconFilled .MuiSvgIcon-root path{
+  color: #faaf00 !important;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  flex: 7;
+  overflow-y: scroll;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e0e0e0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
