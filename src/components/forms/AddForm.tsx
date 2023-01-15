@@ -63,55 +63,103 @@ const AddForm: React.FC<TAdd> = ({ permission, role, selectedRadio, selectedChec
     return (
         <>
             <form style={{ height: '100%' }}>
-                <TextField
-                    fullWidth
-                    id="fullName"
-                    name="full_name"
-                    label={t('Full Name')}
-                    type='text'
-                    value={dialogActionState[0].data.full_name || ''}
-                    onChange={(e) => formChange(e)}
-                    sx={{ mb: 3 }}
-                />
                 {
-                    dialogActionState[0].client ? (
-                        <TextField
-                            fullWidth
-                            id="phoneNumber"
-                            name="phone_number"
-                            label={t('Phone Number')}
-                            value={dialogActionState[0].data.phone_number || ''}
-                            onChange={(e) => formChange(e)}
-                            sx={{ mb: 3 }}
-                        />
-                    ) : (
+                    role !== 'terms' && (
                         <>
                             <TextField
                                 fullWidth
-                                id="email"
-                                name="email"
-                                label={t('Email')}
-                                value={dialogActionState[0].data.email || formik.values.email}
+                                id="fullName"
+                                name="full_name"
+                                label={t('Full Name')}
+                                type='text'
+                                value={dialogActionState[0].data.full_name || ''}
                                 onChange={(e) => formChange(e)}
-                                error={formik.touched.email && Boolean(formik.errors.email)}
-                                helperText={formik.touched.email && formik.errors.email}
                                 sx={{ mb: 3 }}
                             />
-                            {formik.errors.email && (<Alert sx={{ marginBottom: '25px', width: '100%' }} severity="error">{formik.errors.email}</Alert>)}
-                        </>
+                            {
+                                dialogActionState[0].client ? (
+                                    <TextField
+                                        fullWidth
+                                        id="phoneNumber"
+                                        name="phone_number"
+                                        label={t('Phone Number')}
+                                        value={dialogActionState[0].data.phone_number || ''}
+                                        onChange={(e) => formChange(e)}
+                                        sx={{ mb: 3 }}
+                                    />
+                                ) : (
+                                    <>
+                                        <TextField
+                                            fullWidth
+                                            id="email"
+                                            name="email"
+                                            label={t('Email')}
+                                            value={dialogActionState[0].data.email || formik.values.email}
+                                            onChange={(e) => formChange(e)}
+                                            error={formik.touched.email && Boolean(formik.errors.email)}
+                                            helperText={formik.touched.email && formik.errors.email}
+                                            sx={{ mb: 3 }}
+                                        />
+                                        {formik.errors.email && (<Alert sx={{ marginBottom: '25px', width: '100%' }} severity="error">{formik.errors.email}</Alert>)}
+                                    </>
 
+                                )
+                            }
+                            <TextField
+                                fullWidth
+                                id="password"
+                                name="password"
+                                label={t('Password')}
+                                value={dialogActionState[0].data.password || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                            {formik.errors.password && (<Alert sx={{ marginBottom: '25px', width: '100%' }} severity="error">{formik.errors.password}</Alert>)}
+                        </>
                     )
                 }
-                <TextField
-                    fullWidth
-                    id="password"
-                    name="password"
-                    label={t('Password')}
-                    value={dialogActionState[0].data.password || ''}
-                    onChange={(e) => formChange(e)}
-                    sx={{ mb: 3 }}
-                />
-                {formik.errors.password && (<Alert sx={{ marginBottom: '25px', width: '100%' }} severity="error">{formik.errors.password}</Alert>)}
+                {
+                    role === 'terms' && (
+                        <>
+                            <TextField
+                                fullWidth
+                                id="order"
+                                name="order"
+                                label={t('order')}
+                                value={dialogActionState[0].data.order || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                            <TextField
+                                fullWidth
+                                id="ar_text"
+                                name="ar_text"
+                                label={t('ar_text')}
+                                value={dialogActionState[0].data.ar_text || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                            <TextField
+                                fullWidth
+                                id="en_text"
+                                name="en_text"
+                                label={t('en_text')}
+                                value={dialogActionState[0].data.en_text || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                            <TextField
+                                fullWidth
+                                id="ku_text"
+                                name="ku_text"
+                                label={t('ku_text')}
+                                value={dialogActionState[0].data.ku_text || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                        </>
+                    )
+                }
             </form>
             <div style={{ height: '100%' }}>
                 {

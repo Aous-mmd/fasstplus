@@ -1,11 +1,13 @@
 import React, { useRef, useState } from 'react'
 import { Editor } from 'react-draft-wysiwyg';
-import { EditorState } from 'draft-js';
+import { EditorState, ContentState, convertFromHTML } from 'draft-js'
 import '/node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { Box, Tab, Tabs } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { CButton } from '../../components';
-
+import { useEffect } from 'react';
+import { CallApi } from '../../api/CallApi';
+import ApiList from '../../api/ApiList';
 interface TabPanelProps {
     children?: React.ReactNode;
     index: number;
@@ -65,8 +67,46 @@ const Privacy = () => {
 
     const { t } = useTranslation();
 
+    useEffect(() => {
+        CallApi.get(ApiList.getPolicy).then((res) => {
+            const ArData = res.data.data.policies.filter((item: any) => item.lang_id === 1)[0];
+            const blocksFromHTMLAR = convertFromHTML(ArData.text);
+            const contentStateAR = ContentState.createFromBlockArray(
+                blocksFromHTMLAR.contentBlocks,
+                blocksFromHTMLAR.entityMap
+            )
+            setEditorStateAR(EditorState.createWithContent(
+                contentStateAR
+            ))
+            const EnData = res.data.data.policies.filter((item: any) => item.lang_id === 2)[0];
+            const blocksFromHTMLEN = convertFromHTML(EnData.text);
+            const contentStateEN = ContentState.createFromBlockArray(
+                blocksFromHTMLEN.contentBlocks,
+                blocksFromHTMLEN.entityMap
+            )
+            setEditorStateEN(EditorState.createWithContent(
+                contentStateEN
+            ))
+            const KuData = res.data.data.policies.filter((item: any) => item.lang_id === 3)[0];
+            const blocksFromHTMLKU = convertFromHTML(KuData.text);
+            const contentStateKU = ContentState.createFromBlockArray(
+                blocksFromHTMLKU.contentBlocks,
+                blocksFromHTMLKU.entityMap
+            )
+            setEditorStateKU(EditorState.createWithContent(
+                contentStateKU
+            ))
+        })
+    }, []);
+
     const handleSubmit = () => {
-        
+        if (value === 0) {
+            CallApi.post(ApiList.editPolicy, { policy_id: 1, text: refAr.current.editor.editor.children[0].innerHTML });
+        } else if (value === 1) {
+            CallApi.post(ApiList.editPolicy, { policy_id: 2, text: refEn.current.editor.editor.children[0].innerHTML });
+        } else {
+            CallApi.post(ApiList.editPolicy, { policy_id: 3, text: refKu.current.editor.editor.children[0].innerHTML });
+        }
     }
 
     return (
@@ -115,7 +155,7 @@ const Privacy = () => {
                 title={t('Save')}
                 width='100%'
                 disabled={false}
-                onClick={() => handleSubmit}
+                onClick={handleSubmit}
             />
         </Box>
     )

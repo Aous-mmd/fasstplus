@@ -9,6 +9,7 @@ const CompanyInfo = React.lazy(() => import('./pages/Settings/CompanyInfo'));
 const Cities = React.lazy(() => import('./pages/Settings/Cities'));
 const Reasons = React.lazy(() => import('./pages/Settings/Reasons'));
 const Privacy = React.lazy(() => import('./pages/Policies/Privacy'));
+const Terms = React.lazy(() => import('./pages/Policies/Terms'));
 
 const routes = [
   { path: "/dashboard", name: "Dashboard", element: Dashboard },
@@ -20,6 +21,7 @@ const routes = [
   { path: "/settings/cities", name: "Cities", element: Cities },
   { path: "/settings/reasons", name: "Reasons", element: Reasons },
   { path: "/policies/privacy_policy", name: "Privacy Policy", element: Privacy },
+  { path: "/policies/terms", name: "Terms", element: Terms },
 ];
 
 export default routes;

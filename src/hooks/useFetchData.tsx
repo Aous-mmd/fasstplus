@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { dialogAction } from '../store/atom';
 import { CallApi } from '../api/CallApi';
-import { TProvidersData } from '../pages/Services/types';
+import { TPolicy, TProvidersData } from '../pages/Services/types';
 import { TAdminsData, TClientsData, TservicesData } from '../pages/Users/types';
 
 type pageOptions = {
@@ -23,7 +23,7 @@ const useFetchData = (uurl: string, options?: pageOptions) => {
                 params: {
 
                     limit: options.pageSize,
-                    offset: options.page,
+                    offset: options.page * 10,
                     status: 2
                 }
             }).then(response => {
@@ -46,7 +46,7 @@ const useFetchData = (uurl: string, options?: pageOptions) => {
     useEffect(() => {
         fetchData();
         // eslint-disable-next-line
-    }, []);
+    }, [options?.page, options?.pageSize]);
 
     useEffect(() => {
         if (dialogActionState[0].isSuccess) {
@@ -55,11 +55,11 @@ const useFetchData = (uurl: string, options?: pageOptions) => {
         // eslint-disable-next-line
     }, [dialogActionState[0].isSuccess]);
 
-    if(!options) {
+    if (!options) {
         return { data: Tdata?.data, isSuccess };
     }
 
-    const tempData = Tdata?.data as (NonNullable<Partial<TAdminsData & TClientsData & TservicesData & TProvidersData>>);
+    const tempData = Tdata?.data as (NonNullable<Partial<TAdminsData & TClientsData & TservicesData & TProvidersData & TPolicy>>);
     const pageInfo = Tdata?.data.count;
     if (tempData) {
         const testData: any[] = Object.values(tempData).filter((item) => Array.isArray(item));

@@ -30,6 +30,13 @@ const ApiList = {
     activateCities: "/admin/settings/city/activate",
     editCities: "/admin/settings/city/edit",
     getReasons: "/admin/settings/reasons/view",
+    getTerms: "/admin/conditions/term/view",
+    createTerms: "/admin/conditions/term/create",
+    getPolicy: "admin/conditions/policy/view",
+    editPolicy: "admin/conditions/policy/edit",
+    deleteTerms: "admin/conditions/term/delete",
+    editTerms: "admin/conditions/term/edit",
+    changeLang: "admin/auth/lang/change"
 
 }
 

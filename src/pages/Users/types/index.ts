@@ -76,6 +76,7 @@ export type Lang = {
     description: string;
     lang_id: number;
     service_id: number;
+    text?: string;
 }
 
 type OptionalData = {
@@ -85,6 +86,9 @@ type OptionalData = {
     ar_name?: string;
     en_name?: string;
     ku_name?: string;
+    ar_text?: string;
+    en_text?: string;
+    ku_text?: string;
 }
 
 export type TSData = Partial<User & Admin & Service & Provider & OptionalData>;

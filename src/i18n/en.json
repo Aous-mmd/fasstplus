@@ -68,5 +68,9 @@
     "AR": "Arabic",
     "EN": "English",
     "KU": "Kurdish",
-    "WriteSomeThing": "Write some thing!"
+    "WriteSomeThing": "Write some thing!",
+    "Add New Terms": "Add New Terms",
+    "ar_text": "Arabic Text",
+    "en_text": "English Text",
+    "ku_text": "Kurdish Text"
 }

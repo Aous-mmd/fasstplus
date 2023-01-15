@@ -4,10 +4,12 @@ import { useContext } from 'react';
 import { ColorModeContext, colorsTheme } from '../theme';
 import { LightModeOutlined, DarkModeOutlined, Search, PersonOutlined } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
+import { CallApi } from '../api/CallApi';
+import ApiList from '../api/ApiList';
 
 const lngs: Record<string, any> = {
     'ar': { nativeName: 'العربية' },
-    'en-US': { nativeName: 'English' },
+    'en': { nativeName: 'English' },
     'kr': { nativeName: 'Kurdish' }
 };
 
@@ -41,7 +43,12 @@ const TopBar = (props: Props) => {
                 <NativeSelect
                     sx={{ ":hover": { cursor: 'pointer' }, p: 1, color: colors.Primary[700] }}
                     value={Object.keys(lngs).indexOf(i18n.language) + 1 || lngs[i18n.language]}
-                    onChange={(e) => { i18n.changeLanguage(parseInt(e.target.value) === 1 ? 'ar' : parseInt(e.target.value) === 2 ? 'en-US' : 'kr'); }}
+                    onChange={(e) => {
+                        console.log(e.target.value)
+                        i18n.changeLanguage(parseInt(e.target.value) === 1 ? 'ar' : parseInt(e.target.value) === 2 ? 'en-US' : 'kr');
+                        localStorage.setItem('lang_id', e.target.value);
+                        CallApi.post(ApiList.changeLang, { lang_id: e.target.value });
+                    }}
                 >
                     {Object.keys(lngs).map((lng, index) => (
                         <option style={{ padding: 1 }} key={lng} value={index + 1}>

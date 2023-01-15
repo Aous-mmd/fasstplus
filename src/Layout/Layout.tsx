@@ -20,7 +20,6 @@ const Layout = () => {
         const test = myRef.current as any;
         setTopWidth(window.screen.width - test.offsetWidth);
     }, [])
-
     return (
         <Box height="100%" display='flex' width='100%'>
             {

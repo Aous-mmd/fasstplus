@@ -4,6 +4,7 @@ import { TSData } from '../pages/Users/types';
 export const dialogAction = atom({
     key: 'dialog', // unique ID (with respect to other atoms/selectors)
     default: {
+        lang_id: 1,
         add: false,
         edit: false,
         editPassword: false,
@@ -12,6 +13,7 @@ export const dialogAction = atom({
         activate: false,
         block: false,
         service: false,
+        terms: false,
         open: false,
         submit: false,
         isSuccess: false,

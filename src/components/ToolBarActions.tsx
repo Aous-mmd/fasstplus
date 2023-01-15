@@ -35,32 +35,38 @@ const ToolBarActions: React.FC<Props> = ({ params, deletes, role }) => {
                     admin: role === 'admin',
                     client: role === 'client',
                     service: role === 'services',
-                    cities: role === 'cities'
+                    cities: role === 'cities',
+                    terms: role === 'terms'
                 })}>
                     <Edit />
                 </IconButton>
             </Tooltip>
-            <Tooltip title={t('Activate/deActivate')!}>
-                <IconButton onClick={() => setDialogActionState({
-                    ...dialogActionState[0],
-                    edit: false,
-                    activate: true,
-                    delete: false,
-                    editPassword: false,
-                    edit_role: false,
-                    block: false,
-                    open: true,
-                    data: params,
-                    admin: role === 'admin',
-                    client: role === 'client',
-                    service: role === 'services',
-                    cities: role === 'cities'
-                })}>
-                    <OnlinePrediction
-                        sx={!params.active ? { '& path': { color: '#d32f2f !important' } } : { '& path': { color: 'green !important' } }}
-                    />
-                </IconButton>
-            </Tooltip>
+            {
+                role !== 'terms' && (
+                    <Tooltip title={t('Activate/deActivate')!}>
+                        <IconButton onClick={() => setDialogActionState({
+                            ...dialogActionState[0],
+                            edit: false,
+                            activate: true,
+                            delete: false,
+                            editPassword: false,
+                            edit_role: false,
+                            block: false,
+                            open: true,
+                            data: params,
+                            admin: role === 'admin',
+                            client: role === 'client',
+                            service: role === 'services',
+                            cities: role === 'cities',
+                            terms: role === 'terms'
+                        })}>
+                            <OnlinePrediction
+                                sx={!params.active ? { '& path': { color: '#d32f2f !important' } } : { '& path': { color: 'green !important' } }}
+                            />
+                        </IconButton>
+                    </Tooltip>
+                )
+            }
             {
                 (role === 'admin' || role === 'client') && (
                     <>
@@ -70,6 +76,7 @@ const ToolBarActions: React.FC<Props> = ({ params, deletes, role }) => {
                                 edit: false,
                                 activate: false,
                                 delete: false,
+                                terms: false,
                                 editPassword: true,
                                 edit_role: false,
                                 block: false,
@@ -88,6 +95,7 @@ const ToolBarActions: React.FC<Props> = ({ params, deletes, role }) => {
                                 edit: false,
                                 activate: false,
                                 delete: false,
+                                terms: false,
                                 editPassword: false,
                                 edit_role: false,
                                 block: true,
@@ -119,6 +127,7 @@ const ToolBarActions: React.FC<Props> = ({ params, deletes, role }) => {
                             open: true,
                             data: params,
                             admin: true,
+                            terms: false,
                             client: false,
                             service: false
                         })}>
@@ -144,7 +153,8 @@ const ToolBarActions: React.FC<Props> = ({ params, deletes, role }) => {
                             client: role === 'client',
                             service: role === 'services',
                             providers: role === 'providers',
-                            cities: role === 'cities'
+                            cities: role === 'cities',
+                            terms: role === 'terms'
                         })}>
                             <Delete sx={{ '& path': { color: '#d32f2f !important' } }} />
                         </IconButton>

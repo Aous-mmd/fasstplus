@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { dialogAction } from '../store/atom';
-import { Box, useTheme, Dialog, DialogActions, Slide, AppBar, Toolbar, IconButton, Typography } from '@mui/material';
+import { Box, useTheme, Dialog, DialogActions, Slide, AppBar, Toolbar, IconButton, Typography, TextField } from '@mui/material';
 import { colorsTheme } from '../theme';
 import { useTranslation } from 'react-i18next';
 import CButton from './CButton';
@@ -149,6 +149,23 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 ApiUrl = ApiList.editCities;
                 sendData = { city_id: data.id, ...dialogActionState[0].submitData }
             }
+        } else if (role === 'terms') {
+            if (dialogActionState[0].delete) {
+                ApiUrl = ApiList.deleteTerms;
+                setDialogActionState({ ...dialogActionState[0], submit: true });
+                await CallApi.delete(ApiUrl!, { data: { term_id: data.id } }).then(res => {
+                    setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
+                }).catch(error => setDialogActionState({ ...dialogActionState[0], submit: false }));
+                resetState();
+                return;
+            } else if (dialogActionState[0].add) {
+                console.log('hi')
+                ApiUrl = ApiList.createTerms;
+                sendData = { ...dialogActionState[0].data }
+            } else {
+                ApiUrl = ApiList.editTerms;
+                sendData = { term_id: data.id, ...dialogActionState[0].submitData }
+            }
         }
         setDialogActionState({ ...dialogActionState[0], submit: true });
         await CallApi.post(ApiUrl!, { ...sendData }, { headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "multipart/form-data" } }).then(res => {
@@ -156,6 +173,17 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
         }).catch(error => setDialogActionState({ ...dialogActionState[0], submit: false }));
         resetState();
     }
+
+    const formChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        setDialogActionState({
+            ...dialogActionState[0],
+            submitData: {
+                ...dialogActionState[0].submitData,
+                [e.target.name]: e.target.value,
+            }
+        });
+
+    };
 
     useEffect(() => {
         if (role === 'admin' && (dialogActionState[0].edit_role || dialogActionState[0].add)) {
@@ -286,10 +314,62 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                             <EditCity />
                         )
                     }
+                    {
+                        (role === 'terms' && dialogActionState[0].edit) && (
+                            <>
+                                <TextField
+                                    fullWidth
+                                    id="order"
+                                    name="order"
+                                    label={t('order')}
+                                    value={dialogActionState[0].submitData?.order! > 0 ?
+                                        dialogActionState[0].submitData.order :
+                                        dialogActionState[0].data.order}
+                                    onChange={(e) => formChange(e)}
+                                    sx={{ mb: 3 }}
+                                />
+                                <TextField
+                                    fullWidth
+                                    id="ar_text"
+                                    name="ar_text"
+                                    label={t('ar_text')}
+                                    value={
+                                        dialogActionState[0].submitData?.ar_text?.length! > 0 ?
+                                            dialogActionState[0].submitData.ar_text :
+                                            dialogActionState[0].data?.all_lang?.filter((lang) => lang.lang_id === 1)[0].text
+                                    }
+                                    onChange={(e) => formChange(e)}
+                                    sx={{ mb: 3 }}
+                                />
+                                <TextField
+                                    fullWidth
+                                    id="en_text"
+                                    name="en_text"
+                                    label={t('en_text')}
+                                    value={dialogActionState[0].submitData?.en_text?.length! > 0 ?
+                                        dialogActionState[0].submitData.en_text :
+                                        dialogActionState[0].data?.all_lang?.filter((lang) => lang.lang_id === 2)[0].text}
+                                    onChange={(e) => formChange(e)}
+                                    sx={{ mb: 3 }}
+                                />
+                                <TextField
+                                    fullWidth
+                                    id="ku_text"
+                                    name="ku_text"
+                                    label={t('ku_text')}
+                                    value={dialogActionState[0].submitData?.ku_text?.length! > 0 ?
+                                        dialogActionState[0].submitData.ku_text :
+                                        dialogActionState[0].data?.all_lang?.filter((lang) => lang.lang_id === 3)[0].text}
+                                    onChange={(e) => formChange(e)}
+                                    sx={{ mb: 3 }}
+                                />
+                            </>
+                        )
+                    }
                 </Box>
                 {
                     (((role === 'client') || ((role === 'admin') && !dialogActionState[0].add && !dialogActionState[0].edit_role))
-                        || (role === 'services' && !dialogActionState[0].edit) || (role === 'providers') || (role === 'cities'))
+                        || (role === 'services' && !dialogActionState[0].edit) || (role === 'providers') || (role === 'cities') || (role === 'terms'))
 
                     && (
                         <DialogActions>
@@ -298,7 +378,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                                 onClick={() => saveData()}
                                 disabled={
                                     (
-                                        ((role === 'client' || role === 'admin' || role === 'providers' || role === 'cities') && !dialogActionState[0].editPassword)
+                                        ((role === 'client' || role === 'admin' || role === 'providers' || role === 'cities' || role === 'terms') && !dialogActionState[0].editPassword)
                                         || dialogActionState[0].valid || dialogActionState[0].activate || dialogActionState[0].delete) ? false : true
                                 } />
                         </DialogActions>

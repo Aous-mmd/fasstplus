@@ -40,3 +40,19 @@ export type Pivot = {
     provider_id: number;
     service_id: number;
 }
+
+export type TTerms = {
+    msg:    string;
+    data:   TPolicy;
+    errors: any[];
+}
+
+export type TPolicy = {
+    policies: Policy[];
+}
+
+export type Policy = {
+    id:      number;
+    text:    string;
+    lang_id: number;
+}
