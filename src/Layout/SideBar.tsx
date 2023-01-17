@@ -12,6 +12,8 @@ import { findTheNameofLocation } from '../utils/findTheNameofLocation';
 
 type Props = {
     myRef: MutableRefObject<any>;
+    isCollapsed: boolean;
+    setIsCollapsed: (value: boolean) => void;
 }
 
 const SideBar = (props: Props) => {
@@ -21,7 +23,6 @@ const SideBar = (props: Props) => {
     const { collapseSidebar, collapsed } = useProSidebar();
     const navigation = _Nav();
     const location = useLocation();
-    const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
     const [selected, setSelected] = useState<string>('');
     const currentLocation = findTheNameofLocation(navigation, location);
     return (
@@ -55,7 +56,7 @@ const SideBar = (props: Props) => {
                         },
                     }}
                 >
-                    {!isCollapsed && (
+                    {!props.isCollapsed && (
                         <Box display='flex' justifyContent='space-between' alignItems='center' padding={3}>
                             <img
                                 src={require('../assets/img/LOGO.svg').default}
@@ -66,19 +67,19 @@ const SideBar = (props: Props) => {
                             <IconButton onClick={() => {
                                 const wrapper = document.getElementsByClassName('content')[0] as HTMLElement;
                                 wrapper.style.flex = '25';
-                                setIsCollapsed(!collapsed);
+                                props.setIsCollapsed(!collapsed);
                                 collapseSidebar()
                             }}>
                                 <MenuOutlined sx={{ color: colors.Secondary[500] }} />
                             </IconButton>
                         </Box>
                     )}
-                    {isCollapsed && (
+                    {props.isCollapsed && (
                         <Box display='flex' justifyContent='center' alignItems='center' padding={3}>
                             <IconButton onClick={() => {
                                 const wrapper = document.getElementsByClassName('content')[0] as HTMLElement;
                                 wrapper.style.flex = '25'
-                                setIsCollapsed(!collapsed);
+                                props.setIsCollapsed(!collapsed);
                                 collapseSidebar()
                             }}>
                                 <MenuOutlined sx={{ color: colors.Secondary[500] }} />

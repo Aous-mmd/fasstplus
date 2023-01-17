@@ -5,12 +5,13 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { dialogAction } from '../../store/atom';
 import ApiList from '../../api/ApiList';
 import useCitiesColumns from './hooks/useCitiesColumns';
+import { useTranslation } from 'react-i18next';
 
 const Cities = () => {
     const columns = useCitiesColumns();
     const stateActionType = useRecoilState(dialogAction);
     const setStateActionType = useSetRecoilState(dialogAction);
-
+    const { t } = useTranslation();
     useEffect(() => {
         setStateActionType({ ...stateActionType[0], cities: true });
         // eslint-disable-next-line
@@ -27,6 +28,8 @@ const Cities = () => {
                 role='cities'
                 url={ApiList.getCities}
                 columns={columns}
+                addButton
+                addButtonTitle={t('Add New City')!}
             />
         </>
     )

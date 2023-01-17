@@ -23,7 +23,7 @@ const TopBar = (props: Props) => {
     const colorMode = useContext(ColorModeContext);
     const { t, i18n } = useTranslation();
     return (
-        <Box display='flex' sx={{ backgroundColor: colors.Primary[200], zIndex: 100, position: 'fixed', top: 0, width: props.width }} justifyContent='space-between' p={2} width="100%" height='10%'>
+        <Box display='flex' sx={{ backgroundColor: colors.Primary[200], zIndex: 100, position: 'fixed', top: 0, transition: 'all 0.5s ease-in-out', width: props.width }} justifyContent='space-between' p={2} width="100%" height='10%'>
             <Box display='flex' sx={{ backgroundColor: colors.Primary[600] }} borderRadius="5px">
                 <InputBase sx={{ marginInlineStart: 2, flex: 1, color: colors.Primary[100] }} placeholder={t('Search')!} />
                 <IconButton type='button' sx={{ p: 1 }}>

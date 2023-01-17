@@ -32,11 +32,13 @@ const ApiList = {
     getReasons: "/admin/settings/reasons/view",
     getTerms: "/admin/conditions/term/view",
     createTerms: "/admin/conditions/term/create",
-    getPolicy: "admin/conditions/policy/view",
-    editPolicy: "admin/conditions/policy/edit",
-    deleteTerms: "admin/conditions/term/delete",
-    editTerms: "admin/conditions/term/edit",
-    changeLang: "admin/auth/lang/change"
+    getPolicy: "/admin/conditions/policy/view",
+    editPolicy: "/admin/conditions/policy/edit",
+    deleteTerms: "/admin/conditions/term/delete",
+    editTerms: "/admin/conditions/term/edit",
+    changeLang: "/admin/auth/lang/change",
+    addProviders: "/admin/providers/create",
+    addCity: "admin/settings/city/create"
 
 }
 

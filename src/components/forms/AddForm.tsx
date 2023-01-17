@@ -64,7 +64,7 @@ const AddForm: React.FC<TAdd> = ({ permission, role, selectedRadio, selectedChec
         <>
             <form style={{ height: '100%' }}>
                 {
-                    role !== 'terms' && (
+                    (role !== 'terms' && role !== 'providers' && role !== 'cities') && (
                         <>
                             <TextField
                                 fullWidth
@@ -119,6 +119,75 @@ const AddForm: React.FC<TAdd> = ({ permission, role, selectedRadio, selectedChec
                     )
                 }
                 {
+                    role === 'providers' && (
+                        <>
+                            <TextField
+                                fullWidth
+                                id="company_name"
+                                name="company_name"
+                                label={t('company_name')}
+                                value={dialogActionState[0].data.company_name || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                            <TextField
+                                fullWidth
+                                id="provider_email"
+                                name="provider_email"
+                                label={t('Email')}
+                                value={dialogActionState[0].data.provider_email || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                            <TextField
+                                fullWidth
+                                id="first_name"
+                                name="first_name"
+                                label={t('first_name')}
+                                value={dialogActionState[0].data.first_name || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                            <TextField
+                                fullWidth
+                                id="second_name"
+                                name="second_name"
+                                label={t('second_name')}
+                                value={dialogActionState[0].data.second_name || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                            <TextField
+                                fullWidth
+                                id="provider_phone_number"
+                                name="provider_phone_number"
+                                label={t('Phone Number')}
+                                value={dialogActionState[0].data.provider_phone_number || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                            <TextField
+                                fullWidth
+                                id="provider_phone_number_2"
+                                name="provider_phone_number_2"
+                                label={t('Phone Number')}
+                                value={dialogActionState[0].data.provider_phone_number_2 || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                            <TextField
+                                fullWidth
+                                id="job_title"
+                                name="job_title"
+                                label={t('job_title')}
+                                value={dialogActionState[0].data.job_title || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                        </>
+                    )
+                }
+                {
                     role === 'terms' && (
                         <>
                             <TextField
@@ -154,6 +223,48 @@ const AddForm: React.FC<TAdd> = ({ permission, role, selectedRadio, selectedChec
                                 name="ku_text"
                                 label={t('ku_text')}
                                 value={dialogActionState[0].data.ku_text || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                        </>
+                    )
+                }
+                {
+                    role === 'cities' && (
+                        <>
+                            <TextField
+                                fullWidth
+                                id="order"
+                                name="order"
+                                label={t('order')}
+                                value={dialogActionState[0].data.order || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                            <TextField
+                                fullWidth
+                                id="ar_name"
+                                name="ar_name"
+                                label={t('ar_name')}
+                                value={dialogActionState[0].data.ar_name || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                            <TextField
+                                fullWidth
+                                id="en_name"
+                                name="en_name"
+                                label={t('en_name')}
+                                value={dialogActionState[0].data.en_name || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                            <TextField
+                                fullWidth
+                                id="ku_name"
+                                name="ku_name"
+                                label={t('ku_name')}
+                                value={dialogActionState[0].data.ku_name || ''}
                                 onChange={(e) => formChange(e)}
                                 sx={{ mb: 3 }}
                             />

@@ -14,12 +14,20 @@ const Layout = () => {
     const { i18n } = useTranslation();
     const theme = useTheme();
     const myRef = useRef();
-    const [topWidth, setTopWidth] = useState<number>();
+    const [topWidth, setTopWidth] = useState<number>(0);
+    const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
 
     useEffect(() => {
         const test = myRef.current as any;
-        setTopWidth(window.screen.width - test.offsetWidth);
-    }, [])
+        console.log(test.offsetWidth)
+        if (test.offsetWidth === 250) {
+            setTopWidth(window.screen.width - 80);
+        }
+        else {
+            setTopWidth(window.screen.width - 240);
+        }
+    }, [isCollapsed]);
+
     return (
         <Box height="100%" display='flex' width='100%'>
             {
@@ -36,9 +44,9 @@ const Layout = () => {
                 pauseOnHover
                 theme={theme.palette.mode}
             />
-            <SideBar myRef={myRef} />
+            <SideBar myRef={myRef} isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
             <main className='content'>
-                <TopBar width={topWidth!} />
+                <TopBar width={topWidth} />
                 <Routers />
             </main>
         </Box>

@@ -130,9 +130,8 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 }).catch(error => setDialogActionState({ ...dialogActionState[0], submit: false }));
                 resetState();
                 return;
-            } else {
+            } else if (dialogActionState[0].edit) {
                 ApiUrl = ApiList.editProviders;
-                console.log({ ...dialogActionState[0].submitData, provider_id: data.id })
                 sendData = { ...dialogActionState[0].submitData, provider_id: data.id };
                 setDialogActionState({ ...dialogActionState[0], submit: true });
                 await CallApi.post(ApiUrl!, { ...sendData }, { headers: { 'Content-Type': 'application/json' } }).then(res => {
@@ -140,6 +139,9 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 }).catch(error => setDialogActionState({ ...dialogActionState[0], submit: false }));
                 resetState();
                 return;
+            } else {
+                ApiUrl = ApiList.addProviders;
+                sendData = { ...dialogActionState[0].data };
             }
         } else if (role === 'cities') {
             if (dialogActionState[0].activate) {
@@ -148,6 +150,9 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
             } else if (dialogActionState[0].edit) {
                 ApiUrl = ApiList.editCities;
                 sendData = { city_id: data.id, ...dialogActionState[0].submitData }
+            } else {
+                ApiUrl = ApiList.addCity;
+                sendData = { ...dialogActionState[0].data }
             }
         } else if (role === 'terms') {
             if (dialogActionState[0].delete) {
