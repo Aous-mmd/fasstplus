@@ -15,9 +15,10 @@ type Props = {
     addButtonTitle?: string;
     role: string;
     url: string;
+    status?: number;
 }
 
-const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role }) => {
+const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role, status }) => {
     const theme = useTheme();
     const colors = colorsTheme(theme.palette.mode);
     const setDialogActionState = useSetRecoilState(dialogAction);
@@ -31,7 +32,7 @@ const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role 
         }),
         [page, pageSize],
     );
-    const { data, isSuccess, pageInfo } = useFetchData(url, queryOptions);
+    const { data, isSuccess, pageInfo } = useFetchData(url, queryOptions, status);
 
     return (
         <Box width='100%' height='100%'>

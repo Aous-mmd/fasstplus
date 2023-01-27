@@ -44,7 +44,7 @@ const CompanyInfo = () => {
     if (!data)
         return <Loader />
     return (
-        <Grid container spacing={2}>
+        <Grid container spacing={2} display='block'>
             <TextField
                 fullWidth
                 id="email"

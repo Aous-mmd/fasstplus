@@ -29,6 +29,7 @@ const Orders = (props: Props) => {
                 url={ApiList.getOrders}
                 columns={columns}
                 addButton
+                status={3}
                 addButtonTitle={t('Add New Order')!}
             />
         </>
