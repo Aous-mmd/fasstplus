@@ -19,7 +19,6 @@ const Layout = () => {
 
     useEffect(() => {
         const test = myRef.current as any;
-        console.log(test.offsetWidth)
         if (test.offsetWidth === 250) {
             setTopWidth(window.screen.width - 80);
         }

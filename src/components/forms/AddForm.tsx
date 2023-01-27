@@ -64,7 +64,7 @@ const AddForm: React.FC<TAdd> = ({ permission, role, selectedRadio, selectedChec
         <>
             <form style={{ height: '100%' }}>
                 {
-                    (role !== 'terms' && role !== 'providers' && role !== 'cities') && (
+                    (role !== 'terms' && role !== 'providers' && role !== 'cities' && role !== 'reasons') && (
                         <>
                             <TextField
                                 fullWidth
@@ -223,6 +223,39 @@ const AddForm: React.FC<TAdd> = ({ permission, role, selectedRadio, selectedChec
                                 name="ku_text"
                                 label={t('ku_text')}
                                 value={dialogActionState[0].data.ku_text || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                        </>
+                    )
+                }
+                {
+                    role === 'reasons' && (
+                        <>
+                            <TextField
+                                fullWidth
+                                id="ar_name"
+                                name="ar_name"
+                                label={t('ar_name')}
+                                value={dialogActionState[0].data.ar_name || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                            <TextField
+                                fullWidth
+                                id="en_name"
+                                name="en_name"
+                                label={t('en_name')}
+                                value={dialogActionState[0].data.en_name || ''}
+                                onChange={(e) => formChange(e)}
+                                sx={{ mb: 3 }}
+                            />
+                            <TextField
+                                fullWidth
+                                id="ku_name"
+                                name="ku_name"
+                                label={t('ku_name')}
+                                value={dialogActionState[0].data.ku_name || ''}
                                 onChange={(e) => formChange(e)}
                                 sx={{ mb: 3 }}
                             />

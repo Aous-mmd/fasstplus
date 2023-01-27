@@ -15,6 +15,7 @@
     "Settings": "Settings",
     "Cities": "Cities",
     "Compliant reasons": "Compliant reasons",
+    "Reasons": "Reasons",
     "Full Name": "Full Name",
     "Phone Number": "Phone Number",
     "Verification Code": "Verification Code",
@@ -74,5 +75,6 @@
     "en_text": "English Text",
     "ku_text": "Kurdish Text",
     "Add New Providers": "Add New Providers",
-    "Add New City": "Add New City"
+    "Add New City": "Add New City",
+    "Add New Reason": "Add New Reason"
 }

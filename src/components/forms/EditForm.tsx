@@ -82,7 +82,7 @@ const EditForm = ((props: Props) => {
     const [services, setServices] = useState<any[]>([]);
     const handleChange = (event: SelectChangeEvent<any>) => {
         const tempArr = [...personName, ...event.target.value];
-        const uniqueArray = tempArr.filter(function(item, pos) {
+        const uniqueArray = tempArr.filter(function (item, pos) {
             return tempArr.indexOf(item) === pos;
         })
         setPersonName(uniqueArray);
@@ -356,6 +356,51 @@ const EditForm = ((props: Props) => {
                                         )}
                                     </Select>
                                 </FormControl>
+                            </>
+                        )
+                    }
+                    {
+                        role === 'reasons' && (
+                            <>
+                                <TextField
+                                    fullWidth
+                                    id="ar_name"
+                                    name="ar_name"
+                                    label={t('ar_name')}
+                                    value={
+                                        Object.keys(dialogActionState[0].submitData).length > 0 ?
+                                            dialogActionState[0].submitData?.ar_name?.length! > 0 ? dialogActionState[0].submitData?.ar_name :
+                                                dialogActionState[0].data.all_lang?.length! > 0 ? dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 1)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 1)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 1)[0].name
+                                    }
+                                    onChange={(e) => formChange(e)}
+                                    sx={{ mb: 3 }}
+                                />
+                                <TextField
+                                    fullWidth
+                                    id="en_name"
+                                    name="en_name"
+                                    label={t('en_name')}
+                                    value={
+                                        Object.keys(dialogActionState[0].submitData).length > 0 ?
+                                            dialogActionState[0].submitData?.en_name?.length! > 0 ? dialogActionState[0].submitData?.en_name :
+                                                dialogActionState[0].data.all_lang?.length! > 0 ? dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 2)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 2)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 2)[0].name
+                                    }
+                                    onChange={(e) => formChange(e)}
+                                    sx={{ mb: 3 }}
+                                />
+                                <TextField
+                                    fullWidth
+                                    id="ku_name"
+                                    name="ku_name"
+                                    label={t('ku_name')}
+                                    value={
+                                        Object.keys(dialogActionState[0].submitData).length > 0 ?
+                                            dialogActionState[0].submitData?.ku_name?.length! > 0 ? dialogActionState[0].submitData?.ku_name :
+                                                dialogActionState[0].data.all_lang?.length! > 0 ? dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 3)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 3)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 3)[0].name
+                                    }
+                                    onChange={(e) => formChange(e)}
+                                    sx={{ mb: 3 }}
+                                />
                             </>
                         )
                     }

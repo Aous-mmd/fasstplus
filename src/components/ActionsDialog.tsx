@@ -171,6 +171,17 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 ApiUrl = ApiList.editTerms;
                 sendData = { term_id: data.id, ...dialogActionState[0].submitData }
             }
+        } else if (role === 'reasons') {
+            if (dialogActionState[0].activate) {
+                ApiUrl = ApiList.activateReasons;
+                sendData = { reason_id: data.id }
+            } else if (dialogActionState[0].edit) {
+                ApiUrl = ApiList.editReasons;
+                sendData = { reason_id: data.id, ...dialogActionState[0].submitData }
+            } else {
+                ApiUrl = ApiList.addReasons;
+                sendData = { ...dialogActionState[0].data }
+            }
         }
         setDialogActionState({ ...dialogActionState[0], submit: true });
         await CallApi.post(ApiUrl!, { ...sendData }, { headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "multipart/form-data" } }).then(res => {
@@ -374,7 +385,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 </Box>
                 {
                     (((role === 'client') || ((role === 'admin') && !dialogActionState[0].add && !dialogActionState[0].edit_role))
-                        || (role === 'services' && !dialogActionState[0].edit) || (role === 'providers') || (role === 'cities') || (role === 'terms'))
+                        || (role === 'services' && !dialogActionState[0].edit) || (role === 'providers') || (role === 'cities') || (role === 'terms') || role === 'reasons')
 
                     && (
                         <DialogActions>
@@ -383,7 +394,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                                 onClick={() => saveData()}
                                 disabled={
                                     (
-                                        ((role === 'client' || role === 'admin' || role === 'providers' || role === 'cities' || role === 'terms') && !dialogActionState[0].editPassword)
+                                        ((role === 'client' || role === 'admin' || role === 'providers' || role === 'cities' || role === 'terms' || role === 'reasons') && !dialogActionState[0].editPassword)
                                         || dialogActionState[0].valid || dialogActionState[0].activate || dialogActionState[0].delete) ? false : true
                                 } />
                         </DialogActions>

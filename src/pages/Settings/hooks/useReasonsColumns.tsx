@@ -11,13 +11,6 @@ const useReasonsColumns = (): GridColumns => {
     return [
         { field: 'id', hide: true },
         {
-            field: 'order',
-            headerName: t('order')!,
-            minWidth: 30,
-            flex: 0.09,
-            hideable: true,
-        },
-        {
             field: 'ar_name',
             headerName: t('ar_name')!,
             minWidth: 200,

@@ -4,13 +4,14 @@ import { dialogAction } from '../../store/atom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import ApiList from '../../api/ApiList';
 import useReasonsColumns from './hooks/useReasonsColumns';
+import { useTranslation } from 'react-i18next';
 
 
 const Reasons = () => {
     const columns = useReasonsColumns();
     const stateActionType = useRecoilState(dialogAction);
     const setStateActionType = useSetRecoilState(dialogAction);
-
+    const { t } = useTranslation();
     useEffect(() => {
         setStateActionType({ ...stateActionType[0], reasons: true });
         // eslint-disable-next-line
@@ -27,6 +28,8 @@ const Reasons = () => {
                 role='reasons'
                 url={ApiList.getReasons}
                 columns={columns}
+                addButton
+                addButtonTitle={t('Add New Reason')!}
             />
         </>
     )

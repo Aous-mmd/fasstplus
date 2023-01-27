@@ -29,7 +29,7 @@ const ApiList = {
     getCities: "/admin/settings/city/view",
     activateCities: "/admin/settings/city/activate",
     editCities: "/admin/settings/city/edit",
-    getReasons: "/admin/settings/reasons/view",
+    getReasons: "/admin/settings/reason/view",
     getTerms: "/admin/conditions/term/view",
     createTerms: "/admin/conditions/term/create",
     getPolicy: "/admin/conditions/policy/view",
@@ -38,7 +38,10 @@ const ApiList = {
     editTerms: "/admin/conditions/term/edit",
     changeLang: "/admin/auth/lang/change",
     addProviders: "/admin/providers/create",
-    addCity: "admin/settings/city/create"
+    addCity: "/admin/settings/city/create",
+    activateReasons: "/admin/settings/reason/activate",
+    editReasons: "/admin/settings/reason/edit",
+    addReasons: "/admin/settings/reason/create",
 
 }
 
