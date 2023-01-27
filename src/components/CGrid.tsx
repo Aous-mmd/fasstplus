@@ -34,7 +34,7 @@ const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role 
     const { data, isSuccess, pageInfo } = useFetchData(url, queryOptions);
 
     return (
-        <Box width='100%'>
+        <Box width='100%' height='100%'>
             <Box width='100%' mb={5} display='flex' justifyContent='flex-end'>
                 {
                     addButton && (
@@ -48,8 +48,10 @@ const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role 
             </Box>
             <DataGrid
                 rows={data}
-                autoHeight
+                
                 disableSelectionOnClick
+                
+                showCellRightBorder
                 rowHeight={role === 'services' ? 85 : 52}
                 pageSize={pageSize}
                 rowCount={pageInfo || 0}
