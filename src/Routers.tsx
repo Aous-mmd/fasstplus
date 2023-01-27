@@ -9,7 +9,7 @@ import { Box } from '@mui/material';
 const Routers = () => {
     return (
         <Suspense fallback={<Loader />}>
-            <Box height='100%' display='flex' justifyContent='center' alignItems='center' padding={6}>
+            <Box display='flex' justifyContent='center' padding={6} sx={{ paddingTop: '12%' }} mb={10}>
                 <Routes>
                     {routes.map((route, idx) => {
                         return (

@@ -25,7 +25,7 @@ const useFetchData = (uurl: string, options?: pageOptions, status?: number) => {
 
                     limit: options.pageSize,
                     offset: options.page * 10,
-                    status: status || 3
+                    status: status || 2
                 }
             }).then(response => {
                 setData(response.data);
