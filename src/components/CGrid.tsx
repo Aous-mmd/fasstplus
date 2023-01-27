@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, useTheme } from '@mui/material';
+import { Box, useTheme, Checkbox, FormControl, FormGroup, FormControlLabel } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import { colorsTheme } from '../theme'
 import { Add } from '@mui/icons-material';
@@ -8,6 +8,7 @@ import { dialogAction } from '../store/atom';
 import CButton from './CButton';
 import CustomOverLay from './CustomOverLay';
 import { useFetchData } from '../hooks';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
     columns: GridColDef[];
@@ -25,6 +26,11 @@ const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role,
     const [pageSize, setPageSize] = useState(10);
     const dialogActionState = useRecoilState(dialogAction);
     const [page, setPage] = React.useState(0);
+    const [active, setActive] = React.useState(true);
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setActive(event.target.checked);
+    };
+    const { t } = useTranslation();
     const queryOptions = React.useMemo(
         () => ({
             page,
@@ -36,7 +42,29 @@ const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role,
 
     return (
         <Box width='100%' height='100%'>
-            <Box width='100%' mb={5} display='flex' justifyContent='flex-end'>
+            <Box width='100%' mb={1} display='flex' justifyContent='space-between'>
+                <FormControl component="fieldset">
+                    <FormGroup aria-label="position" row>
+                        <FormControlLabel
+                            value="end"
+                            control={<Checkbox
+                                checked={active}
+                                onChange={handleChange}
+                            />}
+                            label={t('showActive')}
+                            labelPlacement="end"
+                        />
+                        <FormControlLabel
+                            value="end"
+                            control={<Checkbox
+                                checked={active}
+                                onChange={handleChange}
+                            />}
+                            label={t('showunActive')}
+                            labelPlacement="end"
+                        />
+                    </FormGroup>
+                </FormControl>
                 {
                     addButton && (
                         <CButton
@@ -49,9 +77,9 @@ const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role,
             </Box>
             <DataGrid
                 rows={data}
-                
+
                 disableSelectionOnClick
-                
+
                 showCellRightBorder
                 rowHeight={role === 'services' ? 85 : 52}
                 pageSize={pageSize}

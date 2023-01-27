@@ -85,5 +85,7 @@
     "client_name": "Client Name",
     "client_city": "Client City",
     "price": "Price",
+    "showActive": "Show Active",
+    "showunActive": "Show Disabled",
     "client_phone": "Client Phone"
 }
