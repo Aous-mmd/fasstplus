@@ -5,12 +5,13 @@ import { dialogAction } from '../store/atom';
 import { CallApi } from '../api/CallApi';
 import { TPolicy, TProvidersData } from '../pages/Services/types';
 import { TAdminsData, TClientsData, TservicesData } from '../pages/Users/types';
+import { TOrders } from '../pages/Orders/types';
 
 type pageOptions = {
     page: number;
     pageSize: number;
 }
-const useFetchData = (uurl: string, options?: pageOptions) => {
+const useFetchData = (uurl: string, options?: pageOptions, status?: number) => {
 
     const [Tdata, setData] = useState<any>();
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
@@ -24,7 +25,7 @@ const useFetchData = (uurl: string, options?: pageOptions) => {
 
                     limit: options.pageSize,
                     offset: options.page * 10,
-                    status: 2
+                    status: status || 3
                 }
             }).then(response => {
                 setData(response.data);
@@ -59,7 +60,7 @@ const useFetchData = (uurl: string, options?: pageOptions) => {
         return { data: Tdata?.data, isSuccess };
     }
 
-    const tempData = Tdata?.data as (NonNullable<Partial<TAdminsData & TClientsData & TservicesData & TProvidersData & TPolicy>>);
+    const tempData = Tdata?.data as (NonNullable<Partial<TAdminsData & TClientsData & TservicesData & TProvidersData & TPolicy & TOrders>>);
     const pageInfo = Tdata?.data.count;
     if (tempData) {
         const testData: any[] = Object.values(tempData).filter((item) => Array.isArray(item));

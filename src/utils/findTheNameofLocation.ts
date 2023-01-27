@@ -8,6 +8,10 @@ export const findTheNameofLocation = (navigation: TMenu[], location: any) => {
                     result = path.name;
                 }
             });
+        } else {
+            if (item.to === location.pathname) {
+                result = item.name;
+            }
         }
     })
     return result;

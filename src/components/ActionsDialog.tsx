@@ -164,7 +164,6 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 resetState();
                 return;
             } else if (dialogActionState[0].add) {
-                console.log('hi')
                 ApiUrl = ApiList.createTerms;
                 sendData = { ...dialogActionState[0].data }
             } else {

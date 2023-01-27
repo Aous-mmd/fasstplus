@@ -76,5 +76,14 @@
     "ku_text": "Kurdish Text",
     "Add New Providers": "Add New Providers",
     "Add New City": "Add New City",
-    "Add New Reason": "Add New Reason"
+    "Add New Reason": "Add New Reason",
+    "Add New Order": "Add New Order",
+    "type": "Type",
+    "status": "Status",
+    "order_date": "Order Date",
+    "service_name": "Service Name",
+    "client_name": "Client Name",
+    "client_city": "Client City",
+    "price": "Price",
+    "client_phone": "Client Phone"
 }

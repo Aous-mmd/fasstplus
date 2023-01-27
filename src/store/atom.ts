@@ -9,6 +9,7 @@ export const dialogAction = atom({
         edit: false,
         editPassword: false,
         delete: false,
+        orders: false,
         valid: false,
         activate: false,
         block: false,

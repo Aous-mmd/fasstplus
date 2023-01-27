@@ -42,7 +42,15 @@ const ApiList = {
     activateReasons: "/admin/settings/reason/activate",
     editReasons: "/admin/settings/reason/edit",
     addReasons: "/admin/settings/reason/create",
-
+    getOrders: "/admin/orders/view",
+    createOrder: "/admin/orders/create",
+    viewOrder: "/orders/order",
+    editOrder: "/admin/orders/edit",
+    getOrderServices: "/admin/orders/services",
+    getOrderUsers: "/admin/orders/users",
+    getOrderProviders: "/admin/orders/providers",
+    changeOrderStatus: "/admin/orders/change",
+    deleteOrder: "/admin/orders/delete"
 }
 
 export default ApiList

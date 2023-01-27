@@ -26,6 +26,11 @@ const Login = () => {
             i18n.changeLanguage(parseInt(langId) === 1 ? 'ar' : parseInt(langId) === 2 ? 'en' : 'kr');
             navigate(from, { replace: true });
           });
+        else
+          auth.signin('2', () => {
+            i18n.changeLanguage('en');
+            navigate(from, { replace: true });
+          });
       }).catch((err) => setIsLoading(true))
     }
     check();

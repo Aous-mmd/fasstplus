@@ -44,7 +44,6 @@ const TopBar = (props: Props) => {
                     sx={{ ":hover": { cursor: 'pointer' }, p: 1, color: colors.Primary[700] }}
                     value={Object.keys(lngs).indexOf(i18n.language) + 1 || lngs[i18n.language]}
                     onChange={(e) => {
-                        console.log(e.target.value)
                         i18n.changeLanguage(parseInt(e.target.value) === 1 ? 'ar' : parseInt(e.target.value) === 2 ? 'en-US' : 'kr');
                         localStorage.setItem('lang_id', e.target.value);
                         CallApi.post(ApiList.changeLang, { lang_id: e.target.value });
