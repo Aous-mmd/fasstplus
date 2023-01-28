@@ -3,6 +3,8 @@
     "Search": "Search",
     "Dashboard": "Dashboard",
     "Users": "Users",
+    "User": "User",
+    "Service": "Service",
     "Clients": "Clients",
     "Admins": "Admins",
     "Services": "Services",
@@ -76,6 +78,7 @@
     "ku_text": "Kurdish Text",
     "Add New Providers": "Add New Providers",
     "Add New City": "Add New City",
+    "City": "City",
     "Add New Reason": "Add New Reason",
     "Add New Order": "Add New Order",
     "type": "Type",
@@ -95,5 +98,8 @@
     "Pending": "Pending",
     "Canceled": "Canceled",
     "Approved": "Approved",
-    "GotoDetails": "Go to details"
+    "GotoDetails": "Go to details",
+    "Edit Order": "Edit Order",
+    "neighborhood": "neighborhood",
+    "details": "Details"
 }

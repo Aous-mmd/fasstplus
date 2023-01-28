@@ -49,6 +49,7 @@ const ApiList = {
     getOrderServices: "/admin/orders/services",
     getOrderUsers: "/admin/orders/users",
     getOrderProviders: "/admin/orders/providers",
+    getOrderCities: "/admin/orders/cities",
     changeOrderStatus: "/admin/orders/change",
     deleteOrder: "/admin/orders/delete"
 }

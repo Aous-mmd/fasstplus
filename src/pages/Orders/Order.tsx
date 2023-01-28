@@ -9,7 +9,7 @@ const Order = (props: Props) => {
 
     useEffect(() => {
         console.log(id);
-    }, []);
+    }, [id]);
 
     return (
         <div>Order</div>

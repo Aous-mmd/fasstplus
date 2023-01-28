@@ -2,8 +2,6 @@
 import { GridColumns } from '@mui/x-data-grid';
 import { useTranslation } from 'react-i18next';
 import { ToolBarActions } from '../../../components';
-import { ActiveValue } from '../../../components/filters';
-import { useGetFilters } from '../../../hooks';
 
 const useOrdersColumns = (): GridColumns => {
     const { t } = useTranslation();

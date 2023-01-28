@@ -13,6 +13,7 @@ import { TransitionProps } from '@mui/material/transitions';
 import { Close } from '@mui/icons-material';
 import { AddForm, ConfirmForm, EditPassword, EditForm } from './forms';
 import EditCity from './forms/EditCity';
+import OrderForm from './forms/OrderForm';
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -40,6 +41,10 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
     const [permissions, setPermissions] = useState<Tpermissions>();
     const [selectedRadio, setSelectedRadio] = useState<number[]>([]);
     const [selectedChecked, setSelectedChecked] = useState<number[]>([]);
+    const [cities, setCities] = useState<any>();
+    const [users, setUsers] = useState<any>();
+    const [providers, setProviders] = useState<any>();
+    const [services, setServices] = useState<any>();
     const [
         ar_name,
         en_name,
@@ -243,6 +248,45 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 }
             })();
         }
+        if (role === 'orders') {
+            (async () => {
+                if (dialogActionState[0].add) {
+                    // await CallApi.get(ApiList.getOrderProviders).then(res => {
+                    //     setProviders(res.data.data.providers);
+                    // });
+                    await CallApi.get(ApiList.getOrderServices).then(res => {
+                        setServices(res.data.data.services);
+                    });
+                    await CallApi.get(ApiList.getOrderUsers).then(res => {
+                        setUsers(res.data.data.users);
+                    });
+                    await CallApi.get(ApiList.getOrderCities).then(res => {
+                        setCities(res.data.data.cities);
+                    });
+                }
+                // else {
+                //     const checked: number[] = [];
+                //     const radios: number[] = [];
+                //     await CallApi.post(ApiList.getAdminPermissions, { user_id: data.id }).then(res => {
+                //         Object.values((res.data.data.permissions) as TPermissions).forEach((permission: Admin[]) => {
+                //             permission.forEach((perm) => {
+                //                 if (perm.checked) {
+                //                     radios.push(perm.id);
+                //                 }
+                //                 perm?.children?.forEach((child) => {
+                //                     if (child.checked) {
+                //                         checked.push(child.id)
+                //                     }
+                //                 })
+                //             })
+                //         })
+                //         setSelectedRadio(radios);
+                //         setSelectedChecked(checked);
+                //         setPermissions(res.data.data.permissions);
+                //     })
+                // }
+            })();
+        }
         return () => {
             setPermissions(undefined);
             resetState();
@@ -252,22 +296,24 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
     return (
         <Dialog sx={{
             "& .MuiDialog-container .MuiPaper-root[role='dialog']": {
-                width: ((dialogActionState[0].admin && !dialogActionState[0].edit) || (role === 'services' && dialogActionState[0].edit)) ? '100vw !important' : '30vw !important'
+                width: ((dialogActionState[0].admin && !dialogActionState[0].edit) || (role === 'services' && dialogActionState[0].edit) || (role === 'orders' && (dialogActionState[0].add || dialogActionState[0].edit) ? true : false)) ? '100vw !important' : '30vw !important'
             },
             "& .MuiDialog-paperFullScreen": { backgroundColor: colors.Primary[100], color: colors.Grey[700] }
         }} open={true}
-            fullScreen={(role === 'admin' &&
+            fullScreen={((role === 'admin' &&
                 (dialogActionState[0].add || dialogActionState[0].edit_role))
-                || (role === 'services' && dialogActionState[0].edit) ? true : false}
-            TransitionComponent={(role === 'admin' &&
+                || (role === 'services' && dialogActionState[0].edit) ? true : false)
+                || (role === 'orders' && (dialogActionState[0].add || dialogActionState[0].edit) ? true : false)
+            }
+            TransitionComponent={((role === 'admin' &&
                 (dialogActionState[0].add || dialogActionState[0].edit_role))
-                || (role === 'services' && dialogActionState[0].edit) ? Transition : undefined}>
+                || (role === 'services' && dialogActionState[0].edit)) || (role === 'orders' && (dialogActionState[0].add || dialogActionState[0].edit) ? true : false) ? Transition : undefined}>
             {
 
                 (
                     ((dialogActionState[0].admin) &&
                         (dialogActionState[0].add || dialogActionState[0].edit_role))
-                    || (role === 'services' && dialogActionState[0].edit)
+                    || (role === 'services' && dialogActionState[0].edit) || (role === 'orders' && (dialogActionState[0].add || dialogActionState[0].edit))
                 ) && (
                     <AppBar sx={{ position: 'relative', zIndex: 101, backgroundColor: colors.Primary[400] }}>
                         <Toolbar>
@@ -280,7 +326,8 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                                 <Close />
                             </IconButton>
                             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-                                {dialogActionState[0].add ? t('Add New Admin') : t('Edit Admin')}
+                                {role === 'admin' ? (dialogActionState[0].add ? t('Add New Admin') : t('Edit Admin'))
+                                    : (dialogActionState[0].add ? t('Add New Order') : t('Edit Order'))}
                             </Typography>
                             <CButton disabled={!dialogActionState[0].valid && dialogActionState[0].admin} onClick={() => saveData()} title={t('Save')!} />
                         </Toolbar>
@@ -326,7 +373,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                         )
                     }
                     {
-                        dialogActionState[0].add && (
+                        (role !== 'orders' && dialogActionState[0].add) && (
                             <AddForm
                                 selectedRadio={selectedRadio}
                                 selectedChecked={selectedChecked}
@@ -335,6 +382,11 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                                 permission={permissions}
                                 role={role}
                             />
+                        )
+                    }
+                    {
+                        role === 'orders' && (
+                            <OrderForm data={{ cities, providers, users, services }} />
                         )
                     }
                     {
@@ -397,7 +449,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 </Box>
                 {
                     (((role === 'client') || ((role === 'admin') && !dialogActionState[0].add && !dialogActionState[0].edit_role))
-                        || (role === 'services' && !dialogActionState[0].edit) || (role === 'providers') || (role === 'orders') || (role === 'cities') || (role === 'terms') || role === 'reasons')
+                        || (role === 'services' && !dialogActionState[0].edit) || (role === 'providers') || (role === 'orders' && !dialogActionState[0].edit && !dialogActionState[0].add) || (role === 'cities') || (role === 'terms') || role === 'reasons')
 
                     && (
                         <DialogActions>

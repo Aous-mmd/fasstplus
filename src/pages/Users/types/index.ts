@@ -89,6 +89,15 @@ type OptionalData = {
     ar_text?: string;
     en_text?: string;
     ku_text?: string;
+    title?: string;
+    price?: string;
+    neighborhood?: string;
+    details?: string;
+    order_date?: any;
+    provider?: string;
+    city_id?: string;
+    user_id?: string;
+    service_id?: string;
 }
 
 export type TSData = Partial<User & Admin & Service & Provider & OptionalData>;
