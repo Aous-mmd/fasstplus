@@ -94,5 +94,6 @@
     "Done": "Done",
     "Pending": "Pending",
     "Canceled": "Canceled",
-    "Approved": "Approved"
+    "Approved": "Approved",
+    "GotoDetails": "Go to details"
 }

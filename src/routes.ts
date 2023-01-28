@@ -11,6 +11,7 @@ const Reasons = React.lazy(() => import('./pages/Settings/Reasons'));
 const Privacy = React.lazy(() => import('./pages/Policies/Privacy'));
 const Terms = React.lazy(() => import('./pages/Policies/Terms'));
 const Orders = React.lazy(() => import('./pages/Orders/Orders'));
+const Order = React.lazy(() => import('./pages/Orders/Order'));
 
 const routes = [
   { path: "/dashboard", name: "Dashboard", element: Dashboard },
@@ -24,6 +25,7 @@ const routes = [
   { path: "/policies/privacy_policy", name: "Privacy Policy", element: Privacy },
   { path: "/policies/terms", name: "Terms", element: Terms },
   { path: "/orders", name: "Orders", element: Orders },
+  { path: "/orders/:id", name: "Order", element: Order },
 ];
 
 export default routes;

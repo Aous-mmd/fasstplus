@@ -20,12 +20,10 @@ const ActiveValue = (props: GridFilterInputValueProps) => {
             }}
         >
             <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Age</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={active}
-                    label="Age"
                     onChange={handleFilterChange}
                 >
                     <MenuItem value={0}>No</MenuItem>

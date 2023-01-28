@@ -1,9 +1,10 @@
 import React from 'react'
-import { Box, IconButton, Tooltip } from '@mui/material'
+import { Box, IconButton, Tooltip, Button } from '@mui/material';
 import { Block, Edit, OnlinePrediction, Delete, Lock, Rule } from '@mui/icons-material';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { dialogAction } from '../store/atom';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
     params: any;
@@ -17,7 +18,7 @@ const ToolBarActions: React.FC<Props> = ({ params, deletes, role }) => {
     const dialogActionState = useRecoilState(dialogAction);
     const { t } = useTranslation();
 
-
+    let navigate = useNavigate();
 
     return (
         <Box display='flex'>
@@ -36,13 +37,14 @@ const ToolBarActions: React.FC<Props> = ({ params, deletes, role }) => {
                     client: role === 'client',
                     service: role === 'services',
                     cities: role === 'cities',
-                    terms: role === 'terms'
+                    terms: role === 'terms',
+                    orders: role === 'orders'
                 })}>
                     <Edit />
                 </IconButton>
             </Tooltip>
             {
-                role !== 'terms' && (
+                ((role !== 'terms') && (role !== 'orders')) && (
                     <Tooltip title={t('Activate/deActivate')!}>
                         <IconButton onClick={() => setDialogActionState({
                             ...dialogActionState[0],
@@ -58,7 +60,8 @@ const ToolBarActions: React.FC<Props> = ({ params, deletes, role }) => {
                             client: role === 'client',
                             service: role === 'services',
                             cities: role === 'cities',
-                            terms: role === 'terms'
+                            terms: role === 'terms',
+                            orders: role === 'orders'
                         })}>
                             <OnlinePrediction
                                 sx={!params.active ? { '& path': { color: '#d32f2f !important' } } : { '& path': { color: 'green !important' } }}
@@ -84,6 +87,7 @@ const ToolBarActions: React.FC<Props> = ({ params, deletes, role }) => {
                                 data: params,
                                 admin: role === 'admin',
                                 client: role === 'client',
+                                orders: false,
                                 service: false
                             })}>
                                 <Lock />
@@ -103,7 +107,8 @@ const ToolBarActions: React.FC<Props> = ({ params, deletes, role }) => {
                                 data: params,
                                 admin: role === 'admin',
                                 client: role === 'client',
-                                service: false
+                                service: false,
+                                orders: false,
                             })}>
                                 <Block
                                     sx={!params.block ? { '& path': { color: '#d32f2f !important' } } : {}}
@@ -129,6 +134,7 @@ const ToolBarActions: React.FC<Props> = ({ params, deletes, role }) => {
                             admin: true,
                             terms: false,
                             client: false,
+                            orders: false,
                             service: false
                         })}>
                             <Rule />
@@ -154,11 +160,22 @@ const ToolBarActions: React.FC<Props> = ({ params, deletes, role }) => {
                             service: role === 'services',
                             providers: role === 'providers',
                             cities: role === 'cities',
-                            terms: role === 'terms'
+                            terms: role === 'terms',
+                            orders: role === 'orders'
                         })}>
                             <Delete sx={{ '& path': { color: '#d32f2f !important' } }} />
                         </IconButton>
                     </Tooltip>
+                )
+            }
+            {
+                role === 'orders' && (
+                    <Button variant='outlined' color='secondary' onClick={
+                        () => {
+                            navigate(`${params.id}`)
+                        }}>
+                        {t('GotoDetails')}
+                    </Button>
                 )
             }
         </Box>

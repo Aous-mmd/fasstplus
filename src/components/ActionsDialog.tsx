@@ -181,6 +181,19 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 ApiUrl = ApiList.addReasons;
                 sendData = { ...dialogActionState[0].data }
             }
+        } else if (role === 'orders') {
+            if (dialogActionState[0].activate) {
+                ApiUrl = ApiList.ActivateClients;
+                sendData = { reason_id: data.id }
+            } else {
+                ApiUrl = ApiList.deleteOrder;
+                setDialogActionState({ ...dialogActionState[0], submit: true });
+                await CallApi.delete(ApiUrl!, { data: { order_id: data.id } }).then(res => {
+                    setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
+                }).catch(error => setDialogActionState({ ...dialogActionState[0], submit: false }));
+                resetState();
+                return;
+            }
         }
         setDialogActionState({ ...dialogActionState[0], submit: true });
         await CallApi.post(ApiUrl!, { ...sendData }, { headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "multipart/form-data" } }).then(res => {
@@ -294,7 +307,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                     }
                     {
                         dialogActionState[0].block && (
-                            <ConfirmForm name={role === 'admin' || role === 'client' ? dialogActionState[0].data.full_name! : dialogActionState[0].data.default_name!} />
+                            <ConfirmForm name={role === 'admin' || role === 'client' ? dialogActionState[0].data.full_name! : role !== "orders" ? dialogActionState[0].data.default_name! : ''} />
                         )
                     }
                     {
@@ -384,7 +397,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 </Box>
                 {
                     (((role === 'client') || ((role === 'admin') && !dialogActionState[0].add && !dialogActionState[0].edit_role))
-                        || (role === 'services' && !dialogActionState[0].edit) || (role === 'providers') || (role === 'cities') || (role === 'terms') || role === 'reasons')
+                        || (role === 'services' && !dialogActionState[0].edit) || (role === 'providers') || (role === 'orders') || (role === 'cities') || (role === 'terms') || role === 'reasons')
 
                     && (
                         <DialogActions>
@@ -393,7 +406,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                                 onClick={() => saveData()}
                                 disabled={
                                     (
-                                        ((role === 'client' || role === 'admin' || role === 'providers' || role === 'cities' || role === 'terms' || role === 'reasons') && !dialogActionState[0].editPassword)
+                                        ((role === 'client' || role === 'admin' || role === 'orders' || role === 'providers' || role === 'cities' || role === 'terms' || role === 'reasons') && !dialogActionState[0].editPassword)
                                         || dialogActionState[0].valid || dialogActionState[0].activate || dialogActionState[0].delete) ? false : true
                                 } />
                         </DialogActions>

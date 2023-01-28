@@ -23,7 +23,7 @@ const useOrdersColumns = (): GridColumns => {
             field: 'client_name',
             headerName: t('client_name')!,
             minWidth: 30,
-            flex: 0.09,
+            flex: 0.1,
             hideable: true,
             renderCell: (params) => {
                 return <div>{params.row.user.full_name}</div>
