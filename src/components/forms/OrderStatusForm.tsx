@@ -18,15 +18,7 @@ const OrderStatusForm = (props: Props) => {
     const [services, setServices] = useState<any>();
     useEffect(() => {
         (async () => {
-            await CallApi.get(ApiList.getOrderServices).then(res => {
-                setServices(res.data.data.services);
-            });
-            await CallApi.get(ApiList.getOrderUsers).then(res => {
-                setUsers(res.data.data.users);
-            });
-            await CallApi.get(ApiList.getOrderCities).then(res => {
-                setCities(res.data.data.cities);
-            });
+            await CallApi.get(ApiList.getOrderProviders, { params: { service_id: dialogActionState[0].data?.service_id } }).then(response => setProvider(response.data.data.providers));
         })();
     }, [])
     const formChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -41,9 +33,6 @@ const OrderStatusForm = (props: Props) => {
 
 
     const handleChange = async (event: SelectChangeEvent) => {
-        if (event.target.name === 'status') {
-            await CallApi.get(ApiList.getOrderProviders, { params: { service_id: event.target.value } }).then(response => setProvider(response.data.data.providers));
-        }
         setDialogActionState({
             ...dialogActionState[0],
             submitData: {
@@ -111,7 +100,7 @@ const OrderStatusForm = (props: Props) => {
                         fullWidth
                         id="finish_date"
                         name="finish_date"
-                        type='datetime-local'
+                        type='date'
                         label={t('finish_date')}
                         value={
                             Object.keys(dialogActionState[0].submitData).length > 0 ?
@@ -139,32 +128,28 @@ const OrderStatusForm = (props: Props) => {
                         </Select>
                     </FormControl>
                 </Grid>
-                {
-                    (dialogActionState[0].submitData?.status === 'Approved' || dialogActionState[0].data?.status === 'Approved') && (
-                        <Grid item xs={12}>
-                            <FormControl fullWidth variant="filled" sx={{ minWidth: 120 }}>
-                                <InputLabel id="provider">{t('Provider')}</InputLabel>
-                                <Select
-                                    labelId="provider"
-                                    id="select-provider"
-                                    disabled={providers?.length > 0 ? false : !providers ? false : true}
-                                    name='provider_id'
-                                    value={dialogActionState[0].submitData?.provider_id ? dialogActionState[0].submitData?.provider_id : dialogActionState[0].data?.provider_id}
-                                    onChange={handleChange}
-                                >
-                                    {
-                                        providers?.map((provider: any) => <MenuItem key={provider.first_name} value={provider.id}>{provider.first_name} {provider.second_name}</MenuItem>)
-                                    }
-                                    {
-                                        !providers && (
-                                            <MenuItem value={dialogActionState[0].data?.provider?.id}>{dialogActionState[0].data?.provider?.first_name} {dialogActionState[0].data?.provider?.second_name}</MenuItem>
-                                        )
-                                    }
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                    )
-                }
+                <Grid item xs={12}>
+                    <FormControl fullWidth variant="filled" sx={{ minWidth: 120 }}>
+                        <InputLabel id="provider">{t('Provider')}</InputLabel>
+                        <Select
+                            labelId="provider"
+                            id="select-provider"
+                            disabled={dialogActionState[0].submitData?.status !== 'Approved'}
+                            name='provider_id'
+                            value={dialogActionState[0].submitData?.provider_id ? dialogActionState[0].submitData?.provider_id : undefined}
+                            onChange={handleChange}
+                        >
+                            {
+                                providers?.map((provider: any) => <MenuItem key={provider.first_name} value={provider.id}>{provider.first_name} {provider.second_name}</MenuItem>)
+                            }
+                            {
+                                !providers && (
+                                    <MenuItem value={dialogActionState[0].data?.provider?.id}>{dialogActionState[0].data?.provider?.first_name} {dialogActionState[0].data?.provider?.second_name}</MenuItem>
+                                )
+                            }
+                        </Select>
+                    </FormControl>
+                </Grid>
             </Grid>
         </Box>
     )

@@ -202,15 +202,18 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 ApiUrl = ApiList.editOrder;
                 sendData = {
                     order_id: data.id, ...dialogActionState[0].submitData,
-                    finish_date: dialogActionState[0].submitData?.finish_date.length > 0 ?
-                        `${dialogActionState[0].submitData?.finish_date.split('T')[0]} ${dialogActionState[0].submitData?.finish_date.split('T')[1]}:00` : '',
                     order_date:
                         dialogActionState[0].submitData?.order_date?.length > 0 ?
                             `${dialogActionState[0].submitData?.order_date.split('T')[0]} ${dialogActionState[0].submitData?.order_date.split('T')[1]}:00` : dialogActionState[0].data?.order_date
                 }
             } else if (dialogActionState[0].status) {
                 ApiUrl = ApiList.changeOrderStatus;
-                sendData = { order_id: data.id, ...dialogActionState[0].submitData }
+                sendData = {
+                    order_id: data.id, ...dialogActionState[0].submitData,
+                    order_date:
+                        dialogActionState[0].submitData?.order_date?.length > 0 ?
+                            `${dialogActionState[0].submitData?.order_date.split('T')[0]} ${dialogActionState[0].submitData?.order_date.split('T')[1]}:00` : dialogActionState[0].data?.order_date
+                }
             }
         }
         setDialogActionState({ ...dialogActionState[0], submit: true });

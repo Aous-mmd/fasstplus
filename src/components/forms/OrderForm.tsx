@@ -221,7 +221,7 @@ const OrderForm = () => {
                                     multiline
                                     rows={3}
                                     label={t('note')}
-                                    value={dialogActionState[0].submitData.note || ''}
+                                    value={dialogActionState[0].submitData.note || dialogActionState[0].data.note}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -229,11 +229,11 @@ const OrderForm = () => {
                             <Grid item xs={3}>
                                 <TextField
                                     fullWidth
-                                    type='datetime-local'
-                                    id="order_date"
+                                    type='date'
+                                    id="finish_date"
                                     name="finish_date"
                                     label={t('finish_date')}
-                                    value={dialogActionState[0].submitData.finish_date || ''}
+                                    value={dialogActionState[0].submitData.finish_date || dialogActionState[0].data.finish_date}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
