@@ -90,5 +90,9 @@
     "client_phone": "Client Phone",
     "All": "All",
     "Blocked": "Blocked",
-    "Filter": "Filter"
+    "Filter": "Filter",
+    "Done": "Done",
+    "Pending": "Pending",
+    "Canceled": "Canceled",
+    "Approved": "Approved"
 }

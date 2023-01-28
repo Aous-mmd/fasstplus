@@ -29,6 +29,7 @@ const Cities = () => {
                 url={ApiList.getCities}
                 columns={columns}
                 addButton
+                cities={true}
                 addButtonTitle={t('Add New City')!}
             />
         </>

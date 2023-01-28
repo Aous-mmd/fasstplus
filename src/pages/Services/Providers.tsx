@@ -28,6 +28,7 @@ const Providers = () => {
                 role='providers'
                 columns={columns}
                 url={ApiList.getProviders}
+                providers
                 addButton
                 addButtonTitle={t('Add New Providers')!}
             />

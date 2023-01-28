@@ -29,6 +29,7 @@ const Reasons = () => {
                 url={ApiList.getReasons}
                 columns={columns}
                 addButton
+                reasons
                 addButtonTitle={t('Add New Reason')!}
             />
         </>

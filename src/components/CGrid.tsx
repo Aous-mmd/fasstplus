@@ -17,9 +17,14 @@ type Props = {
     role: string;
     url: string;
     status?: number;
+    users?: boolean;
+    cities?: boolean;
+    reasons?: boolean;
+    providers?: boolean;
+    orders?: boolean;
 }
 
-const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role, status }) => {
+const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role, status, users, cities, reasons, providers, orders }) => {
     const theme = useTheme();
     const colors = colorsTheme(theme.palette.mode);
     const setDialogActionState = useSetRecoilState(dialogAction);
@@ -47,21 +52,65 @@ const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role,
 
     return (
         <Box width='100%' height='100%'>
-            <Box width='100%' mb={1} display='flex' justifyContent='space-between'>
+            <Box width='100%' mb={1} display='flex' justifyContent='space-between' alignItems='center'>
                 <FormControl>
-                    <FormLabel id="demo-controlled-radio-buttons-group">{t('Filter')}</FormLabel>
-                    <RadioGroup
-                        aria-labelledby="demo-controlled-radio-buttons-group"
-                        name="controlled-radio-buttons-group"
-                        value={value}
-                        row
-                        onChange={handleChange}
-                    >
-                        <FormControlLabel value={0} control={<Radio />} label={t('All')} />
-                        <FormControlLabel value={1} control={<Radio />} label={t('showActive')} />
-                        <FormControlLabel value={2} control={<Radio />} label={t('showunActive')} />
-                        <FormControlLabel value={3} control={<Radio />} label={t('Blocked')} />
-                    </RadioGroup>
+                    {
+                        users && (
+                            <>
+                                <FormLabel id="demo-controlled-radio-buttons-group">{t('Filter')}</FormLabel>
+                                <RadioGroup
+                                    aria-labelledby="demo-controlled-radio-buttons-group"
+                                    name="controlled-radio-buttons-group"
+                                    value={value}
+                                    row
+                                    onChange={handleChange}
+                                >
+                                    <FormControlLabel value={0} control={<Radio />} label={t('All')} />
+                                    <FormControlLabel value={1} control={<Radio />} label={t('showActive')} />
+                                    <FormControlLabel value={2} control={<Radio />} label={t('showunActive')} />
+                                    <FormControlLabel value={3} control={<Radio />} label={t('Blocked')} />
+                                </RadioGroup>
+                            </>
+                        )
+                    }
+                    {
+                        orders && (
+                            <>
+                                <FormLabel id="demo-controlled-radio-buttons-group">{t('Filter')}</FormLabel>
+                                <RadioGroup
+                                    aria-labelledby="demo-controlled-radio-buttons-group"
+                                    name="controlled-radio-buttons-group"
+                                    value={value}
+                                    row
+                                    onChange={handleChange}
+                                >
+                                    <FormControlLabel value={4} control={<Radio />} label={t('All')} />
+                                    <FormControlLabel value={0} control={<Radio />} label={t('Done')} />
+                                    <FormControlLabel value={1} control={<Radio />} label={t('Pending')} />
+                                    <FormControlLabel value={2} control={<Radio />} label={t('Canceled')} />
+                                    <FormControlLabel value={3} control={<Radio />} label={t('Approved')} />
+                                </RadioGroup>
+                            </>
+                        )
+                    }
+                    {
+                        (cities || reasons || providers) && (
+                            <>
+                                <FormLabel id="demo-controlled-radio-buttons-group">{t('Filter')}</FormLabel>
+                                <RadioGroup
+                                    aria-labelledby="demo-controlled-radio-buttons-group"
+                                    name="controlled-radio-buttons-group"
+                                    value={value}
+                                    row
+                                    onChange={handleChange}
+                                >
+                                    <FormControlLabel value={2} control={<Radio />} label={t('All')} />
+                                    <FormControlLabel value={0} control={<Radio />} label={t('showActive')} />
+                                    <FormControlLabel value={1} control={<Radio />} label={t('showunActive')} />
+                                </RadioGroup>
+                            </>
+                        )
+                    }
                 </FormControl>
                 {
                     addButton && (

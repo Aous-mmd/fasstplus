@@ -12,7 +12,6 @@ type pageOptions = {
     status: number;
 }
 const useFetchData = (uurl: string, options?: pageOptions) => {
-    console.log(options);
     const [Tdata, setData] = useState<any>();
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
     const setDialogActionState = useSetRecoilState(dialogAction);

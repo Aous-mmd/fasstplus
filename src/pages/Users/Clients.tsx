@@ -23,6 +23,7 @@ const Clients = () => {
                 url={ApiList.CilentsList}
                 columns={columns}
                 addButton
+                users={true}
                 addButtonTitle={t('Add New Client')!}
             />
         </>

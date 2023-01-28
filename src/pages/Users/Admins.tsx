@@ -23,6 +23,7 @@ const Admins = () => {
         url={ApiList.AdminsList}
         columns={columns}
         addButton
+        users={true}
         addButtonTitle={t('Add New Admin')!}
       />
     </>
