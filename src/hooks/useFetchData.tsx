@@ -49,6 +49,7 @@ const useFetchData = (uurl: string, options?: pageOptions) => {
     }, [options?.page, options?.pageSize, options?.status]);
 
     useEffect(() => {
+        resetState();
         if (dialogActionState[0].isSuccess) {
             fetchData();
         }

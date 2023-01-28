@@ -104,5 +104,6 @@
     "GotoDetails": "Go to details",
     "Edit Order": "Edit Order",
     "neighborhood": "neighborhood",
-    "details": "Details"
+    "details": "Details",
+    "reject_reason": "Reject Reason"
 }

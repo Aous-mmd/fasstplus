@@ -106,7 +106,8 @@ const OrderStatusForm = (props: Props) => {
                             Object.keys(dialogActionState[0].submitData).length > 0 ?
                                 dialogActionState[0].submitData.finish_date ?
                                     dialogActionState[0].submitData.finish_date :
-                                    dialogActionState[0].data.finish_date ? dialogActionState[0].data.finish_date : '' : dialogActionState[0].data.finish_date ? dialogActionState[0].data.finish_date : ''}
+                                    dialogActionState[0].data.finish_date ?
+                                        dialogActionState[0].data.finish_date : '' : dialogActionState[0].data.finish_date ? dialogActionState[0].data.finish_date : ''}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -136,7 +137,7 @@ const OrderStatusForm = (props: Props) => {
                             id="select-provider"
                             disabled={dialogActionState[0].submitData?.status !== 'Approved'}
                             name='provider_id'
-                            value={dialogActionState[0].submitData?.provider_id ? dialogActionState[0].submitData?.provider_id : undefined}
+                            value={dialogActionState[0].submitData?.provider_id ? dialogActionState[0].submitData?.provider_id : dialogActionState[0].data?.provider_id}
                             onChange={handleChange}
                         >
                             {

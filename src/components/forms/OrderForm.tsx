@@ -1,11 +1,11 @@
+import React, { useState, useEffect } from 'react'
 import { Box, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material'
-import React, { useState } from 'react'
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { dialogAction } from '../../store/atom';
 import { useTranslation } from 'react-i18next';
 import { CallApi } from '../../api/CallApi';
 import ApiList from '../../api/ApiList';
-import { useEffect } from 'react';
+import _ from 'lodash';
 
 const OrderForm = () => {
     const dialogActionState = useRecoilState(dialogAction);
@@ -194,7 +194,7 @@ const OrderForm = () => {
                             onChange={handleChange}
                         >
                             {
-                                providers?.map((provider: any) => <MenuItem key={provider.first_name} value={provider.id}>{provider.first_name} {provider.second_name}</MenuItem>)
+                                providers?.map((provider: any) => <MenuItem key={_.uniqueId()} value={provider.id}>{provider.first_name} {provider.second_name}</MenuItem>)
                             }
                             {
                                 !providers && (
@@ -208,12 +208,6 @@ const OrderForm = () => {
                     dialogActionState[0].edit && (
                         <>
                             <Grid item xs={12}>
-                                <TextField
-                                    sx={{ display: 'none' }}
-                                    id="order_address_id"
-                                    name="order_address_id"
-                                    value={dialogActionState[0].data.order_address.id}
-                                />
                                 <TextField
                                     fullWidth
                                     id="note"
