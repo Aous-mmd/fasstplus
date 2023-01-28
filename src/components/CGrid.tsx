@@ -32,8 +32,10 @@ const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role,
     const [pageSize, setPageSize] = useState(10);
     const dialogActionState = useRecoilState(dialogAction);
     const [page, setPage] = React.useState(0);
-    const [value, setValue] = React.useState<number>(0);
-    const [Cstatus, setCstatus] = React.useState<number>(status || 0);
+    const [value, setValue] = React.useState<number>(role === 'orders' ? 4 : role === 'users' ? 0 : 2);
+    const [Cstatus, setCstatus] = React.useState<number>(
+        role === 'orders' ? 4 : role === 'users' ? 0 : 2
+    );
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCstatus(parseInt((event.target as HTMLInputElement).value));
         setValue(parseInt((event.target as HTMLInputElement).value));

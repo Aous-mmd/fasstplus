@@ -230,8 +230,9 @@ const OrderForm = () => {
                                 <TextField
                                     fullWidth
                                     type='datetime-local'
-                                    id="finish_date"
+                                    id="order_date"
                                     name="finish_date"
+                                    label={t('finish_date')}
                                     value={dialogActionState[0].submitData.finish_date || ''}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}

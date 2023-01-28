@@ -14,6 +14,7 @@ import { Close } from '@mui/icons-material';
 import { AddForm, ConfirmForm, EditPassword, EditForm } from './forms';
 import EditCity from './forms/EditCity';
 import OrderForm from './forms/OrderForm';
+import OrderStatusForm from './forms/OrderStatusForm';
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -199,7 +200,17 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 sendData = { ...dialogActionState[0].submitData, order_date: `${dialogActionState[0].submitData.order_date.split('T')[0]} ${dialogActionState[0].submitData.order_date.split('T')[1]}:00` }
             } else if (dialogActionState[0].edit) {
                 ApiUrl = ApiList.editOrder;
-                sendData = { order_id: data.id, ...dialogActionState[0].submitData, order_date: `${dialogActionState[0].submitData.order_date.split('T')[0]} ${dialogActionState[0].submitData.order_date.split('T')[1]}:00` }
+                sendData = {
+                    order_id: data.id, ...dialogActionState[0].submitData,
+                    finish_date: dialogActionState[0].submitData?.finish_date.length > 0 ?
+                        `${dialogActionState[0].submitData?.finish_date.split('T')[0]} ${dialogActionState[0].submitData?.finish_date.split('T')[1]}:00` : '',
+                    order_date:
+                        dialogActionState[0].submitData?.order_date?.length > 0 ?
+                            `${dialogActionState[0].submitData?.order_date.split('T')[0]} ${dialogActionState[0].submitData?.order_date.split('T')[1]}:00` : dialogActionState[0].data?.order_date
+                }
+            } else if (dialogActionState[0].status) {
+                ApiUrl = ApiList.changeOrderStatus;
+                sendData = { order_id: data.id, ...dialogActionState[0].submitData }
             }
         }
         setDialogActionState({ ...dialogActionState[0], submit: true });
@@ -348,8 +359,13 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                         )
                     }
                     {
-                        role === 'orders' && (
+                        (role === 'orders' && !dialogActionState[0].status) && (
                             <OrderForm />
+                        )
+                    }
+                    {
+                        (role === 'orders' && dialogActionState[0].status) && (
+                            <OrderStatusForm />
                         )
                     }
                     {

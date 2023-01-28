@@ -103,6 +103,8 @@ type OptionalData = {
     order_address?: any;
     finish_date?: any;
     note?: string;
+    reject_reason?: string;
+    status?: string;
 }
 
 export type TSData = Partial<User & Admin & Service & Provider & OptionalData>;

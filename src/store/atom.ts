@@ -6,6 +6,7 @@ export const dialogAction = atom({
     default: {
         lang_id: 1,
         add: false,
+        status: false,
         edit: false,
         editPassword: false,
         delete: false,

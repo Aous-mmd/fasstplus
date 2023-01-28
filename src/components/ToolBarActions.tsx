@@ -170,12 +170,35 @@ const ToolBarActions: React.FC<Props> = ({ params, deletes, role }) => {
             }
             {
                 role === 'orders' && (
-                    <Button variant='outlined' color='secondary' onClick={
-                        () => {
-                            navigate(`${params.id}`)
-                        }}>
-                        {t('GotoDetails')}
-                    </Button>
+                    <>
+                        <Button sx={{ m: 1 }} variant='outlined' color='secondary' onClick={
+                            () => {
+                                navigate(`${params.id}`)
+                            }}>
+                            {t('GotoDetails')}
+                        </Button>
+                        <Button sx={{ m: 1 }} variant='outlined' color='secondary' onClick={
+                            () => setDialogActionState({
+                                ...dialogActionState[0],
+                                edit: false,
+                                activate: false,
+                                delete: false,
+                                editPassword: false,
+                                edit_role: false,
+                                block: false,
+                                open: true,
+                                data: params,
+                                admin: false,
+                                client: false,
+                                service: false,
+                                cities: false,
+                                terms: false,
+                                status: true,
+                                orders: role === 'orders'
+                            })}>
+                            {t('changeStatus')}
+                        </Button>
+                    </>
                 )
             }
         </Box>
