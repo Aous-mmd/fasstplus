@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, useTheme, Checkbox, FormControl, FormGroup, FormControlLabel } from '@mui/material';
+import { Box, useTheme, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import { colorsTheme } from '../theme'
 import { Add } from '@mui/icons-material';
@@ -23,47 +23,45 @@ const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role,
     const theme = useTheme();
     const colors = colorsTheme(theme.palette.mode);
     const setDialogActionState = useSetRecoilState(dialogAction);
+    const { t } = useTranslation();
     const [pageSize, setPageSize] = useState(10);
     const dialogActionState = useRecoilState(dialogAction);
     const [page, setPage] = React.useState(0);
-    const [active, setActive] = React.useState(true);
+    const [value, setValue] = React.useState<number>(0);
+    const [Cstatus, setCstatus] = React.useState<number>(status || 0);
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setActive(event.target.checked);
+        setCstatus(parseInt((event.target as HTMLInputElement).value));
+        setValue(parseInt((event.target as HTMLInputElement).value));
     };
-    const { t } = useTranslation();
+
+
     const queryOptions = React.useMemo(
         () => ({
             page,
             pageSize,
+            status: Cstatus
         }),
-        [page, pageSize],
+        [page, pageSize, Cstatus],
     );
-    const { data, isSuccess, pageInfo } = useFetchData(url, queryOptions, status);
+    const { data, isSuccess, pageInfo } = useFetchData(url, queryOptions);
 
     return (
         <Box width='100%' height='100%'>
             <Box width='100%' mb={1} display='flex' justifyContent='space-between'>
-                <FormControl component="fieldset">
-                    <FormGroup aria-label="position" row>
-                        <FormControlLabel
-                            value="end"
-                            control={<Checkbox
-                                checked={active}
-                                onChange={handleChange}
-                            />}
-                            label={t('showActive')}
-                            labelPlacement="end"
-                        />
-                        <FormControlLabel
-                            value="end"
-                            control={<Checkbox
-                                checked={active}
-                                onChange={handleChange}
-                            />}
-                            label={t('showunActive')}
-                            labelPlacement="end"
-                        />
-                    </FormGroup>
+                <FormControl>
+                    <FormLabel id="demo-controlled-radio-buttons-group">{t('Filter')}</FormLabel>
+                    <RadioGroup
+                        aria-labelledby="demo-controlled-radio-buttons-group"
+                        name="controlled-radio-buttons-group"
+                        value={value}
+                        row
+                        onChange={handleChange}
+                    >
+                        <FormControlLabel value={0} control={<Radio />} label={t('All')} />
+                        <FormControlLabel value={1} control={<Radio />} label={t('showActive')} />
+                        <FormControlLabel value={2} control={<Radio />} label={t('showunActive')} />
+                        <FormControlLabel value={3} control={<Radio />} label={t('Blocked')} />
+                    </RadioGroup>
                 </FormControl>
                 {
                     addButton && (
@@ -77,9 +75,7 @@ const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role,
             </Box>
             <DataGrid
                 rows={data}
-
                 disableSelectionOnClick
-
                 showCellRightBorder
                 rowHeight={role === 'services' ? 85 : 52}
                 pageSize={pageSize}
@@ -91,7 +87,7 @@ const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role,
                 rowsPerPageOptions={[10, 20, 30, 40, 50, 60, 70, 80, 90, 100]}
                 onPageSizeChange={page => setPageSize(page)}
                 onPageChange={(newPage) => setPage(newPage)}
-                filterMode='client'
+                filterMode='server'
                 sx={{
                     backgroundColor: colors.Primary[600],
                     color: colors.Primary[100],

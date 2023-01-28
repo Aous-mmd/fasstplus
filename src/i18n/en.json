@@ -87,5 +87,8 @@
     "price": "Price",
     "showActive": "Show Active",
     "showunActive": "Show Disabled",
-    "client_phone": "Client Phone"
+    "client_phone": "Client Phone",
+    "All": "All",
+    "Blocked": "Blocked",
+    "Filter": "Filter"
 }

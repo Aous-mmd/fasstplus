@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react'
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { dialogAction } from '../store/atom';
 import { CallApi } from '../api/CallApi';
@@ -10,9 +9,10 @@ import { TOrders } from '../pages/Orders/types';
 type pageOptions = {
     page: number;
     pageSize: number;
+    status: number;
 }
-const useFetchData = (uurl: string, options?: pageOptions, status?: number) => {
-
+const useFetchData = (uurl: string, options?: pageOptions) => {
+    console.log(options);
     const [Tdata, setData] = useState<any>();
     const [isSuccess, setIsSuccess] = useState<boolean>(false);
     const setDialogActionState = useSetRecoilState(dialogAction);
@@ -25,7 +25,7 @@ const useFetchData = (uurl: string, options?: pageOptions, status?: number) => {
 
                     limit: options.pageSize,
                     offset: options.page * 10,
-                    status: status || 2
+                    status: options.status
                 }
             }).then(response => {
                 setData(response.data);
@@ -47,7 +47,7 @@ const useFetchData = (uurl: string, options?: pageOptions, status?: number) => {
     useEffect(() => {
         fetchData();
         // eslint-disable-next-line
-    }, [options?.page, options?.pageSize]);
+    }, [options?.page, options?.pageSize, options?.status]);
 
     useEffect(() => {
         if (dialogActionState[0].isSuccess) {
