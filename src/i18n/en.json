@@ -10,6 +10,8 @@
     "Services": "Services",
     "Categories": "Categories",
     "Services Provider": "Services Provider",
+    "Provider": "Provider",
+    "finish_date": "Finish Date",
     "Reports": "Reports",
     "Orders": "Orders",
     "Notifications": "Notifications",

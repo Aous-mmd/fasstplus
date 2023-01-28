@@ -94,10 +94,15 @@ type OptionalData = {
     neighborhood?: string;
     details?: string;
     order_date?: any;
-    provider?: string;
+    provider?: any;
     city_id?: string;
     user_id?: string;
     service_id?: string;
+    provider_id?: string;
+    approval_date?: any;
+    order_address?: any;
+    finish_date?: any;
+    note?: string;
 }
 
 export type TSData = Partial<User & Admin & Service & Provider & OptionalData>;

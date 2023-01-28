@@ -41,10 +41,6 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
     const [permissions, setPermissions] = useState<Tpermissions>();
     const [selectedRadio, setSelectedRadio] = useState<number[]>([]);
     const [selectedChecked, setSelectedChecked] = useState<number[]>([]);
-    const [cities, setCities] = useState<any>();
-    const [users, setUsers] = useState<any>();
-    const [providers, setProviders] = useState<any>();
-    const [services, setServices] = useState<any>();
     const [
         ar_name,
         en_name,
@@ -190,7 +186,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
             if (dialogActionState[0].activate) {
                 ApiUrl = ApiList.ActivateClients;
                 sendData = { reason_id: data.id }
-            } else {
+            } else if (dialogActionState[0].delete) {
                 ApiUrl = ApiList.deleteOrder;
                 setDialogActionState({ ...dialogActionState[0], submit: true });
                 await CallApi.delete(ApiUrl!, { data: { order_id: data.id } }).then(res => {
@@ -198,13 +194,19 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 }).catch(error => setDialogActionState({ ...dialogActionState[0], submit: false }));
                 resetState();
                 return;
+            } else if (dialogActionState[0].add) {
+                ApiUrl = ApiList.createOrder;
+                sendData = { ...dialogActionState[0].submitData, order_date: `${dialogActionState[0].submitData.order_date.split('T')[0]} ${dialogActionState[0].submitData.order_date.split('T')[1]}:00` }
+            } else if (dialogActionState[0].edit) {
+                ApiUrl = ApiList.editOrder;
+                sendData = { order_id: data.id, ...dialogActionState[0].submitData, order_date: `${dialogActionState[0].submitData.order_date.split('T')[0]} ${dialogActionState[0].submitData.order_date.split('T')[1]}:00` }
             }
         }
         setDialogActionState({ ...dialogActionState[0], submit: true });
         await CallApi.post(ApiUrl!, { ...sendData }, { headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "multipart/form-data" } }).then(res => {
             setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
+            resetState();
         }).catch(error => setDialogActionState({ ...dialogActionState[0], submit: false }));
-        resetState();
     }
 
     const formChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -246,45 +248,6 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                         setPermissions(res.data.data.permissions);
                     })
                 }
-            })();
-        }
-        if (role === 'orders') {
-            (async () => {
-                if (dialogActionState[0].add) {
-                    // await CallApi.get(ApiList.getOrderProviders).then(res => {
-                    //     setProviders(res.data.data.providers);
-                    // });
-                    await CallApi.get(ApiList.getOrderServices).then(res => {
-                        setServices(res.data.data.services);
-                    });
-                    await CallApi.get(ApiList.getOrderUsers).then(res => {
-                        setUsers(res.data.data.users);
-                    });
-                    await CallApi.get(ApiList.getOrderCities).then(res => {
-                        setCities(res.data.data.cities);
-                    });
-                }
-                // else {
-                //     const checked: number[] = [];
-                //     const radios: number[] = [];
-                //     await CallApi.post(ApiList.getAdminPermissions, { user_id: data.id }).then(res => {
-                //         Object.values((res.data.data.permissions) as TPermissions).forEach((permission: Admin[]) => {
-                //             permission.forEach((perm) => {
-                //                 if (perm.checked) {
-                //                     radios.push(perm.id);
-                //                 }
-                //                 perm?.children?.forEach((child) => {
-                //                     if (child.checked) {
-                //                         checked.push(child.id)
-                //                     }
-                //                 })
-                //             })
-                //         })
-                //         setSelectedRadio(radios);
-                //         setSelectedChecked(checked);
-                //         setPermissions(res.data.data.permissions);
-                //     })
-                // }
             })();
         }
         return () => {
@@ -386,7 +349,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                     }
                     {
                         role === 'orders' && (
-                            <OrderForm data={{ cities, providers, users, services }} />
+                            <OrderForm />
                         )
                     }
                     {

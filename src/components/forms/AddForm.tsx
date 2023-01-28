@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react'
-import { Alert, TextField } from '@mui/material';
+import React, { useEffect, useState } from 'react'
+import { Alert, Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, TextField } from '@mui/material';
 import { dialogAction } from '../../store/atom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useTranslation } from 'react-i18next';
 import Permissions from './Permissions';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { CallApi } from '../../api/CallApi';
+import ApiList from '../../api/ApiList';
 
 type TAdd = {
     permission?: any;
@@ -15,6 +17,17 @@ type TAdd = {
     setSelectedChecked: React.Dispatch<React.SetStateAction<number[]>>;
     setSelectedRadio: React.Dispatch<React.SetStateAction<number[]>>;
 }
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 250,
+        },
+    },
+};
 
 const AddForm: React.FC<TAdd> = ({ permission, role, selectedRadio, selectedChecked, setSelectedChecked, setSelectedRadio }) => {
     const dialogActionState = useRecoilState(dialogAction);
@@ -59,6 +72,33 @@ const AddForm: React.FC<TAdd> = ({ permission, role, selectedRadio, selectedChec
         }
         // eslint-disable-next-line
     }, [formik.isValid]);
+
+    const [services, setServices] = useState<any[]>();
+    const [personName, setPersonName] = React.useState<number[]>(services?.map((service) => service.id)!);
+
+    const handleChange = (event: SelectChangeEvent<any>) => {
+        const tempArr = [...personName, ...event.target.value];
+        const uniqueArray = tempArr.filter(function (item, pos) {
+            return tempArr.indexOf(item) === pos;
+        })
+        setPersonName(uniqueArray);
+        setDialogActionState({
+            ...dialogActionState[0],
+            submitData: {
+                ...dialogActionState[0].submitData,
+                ids: [...uniqueArray]
+            }
+        });
+    };
+
+    useEffect(() => {
+        if (role === 'providers') {
+            CallApi.get(ApiList.getAllServices).then(res => {
+                setServices(res.data.data.services);
+            })
+        }
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <>
@@ -184,6 +224,43 @@ const AddForm: React.FC<TAdd> = ({ permission, role, selectedRadio, selectedChec
                                 onChange={(e) => formChange(e)}
                                 sx={{ mb: 3 }}
                             />
+                            <FormControl sx={{ m: 1, width: 300 }}>
+                                <InputLabel id="demo-multiple-checkbox-label">{t('Services')}</InputLabel>
+                                <Select
+                                    labelId="demo-multiple-checkbox-label"
+                                    id="demo-multiple-checkbox"
+                                    multiple
+                                    value={
+                                        Object.keys(dialogActionState[0].submitData).length > 0 ?
+                                            dialogActionState[0].submitData?.service_providers?.length! > 0 ?
+                                                dialogActionState[0].submitData.service_providers?.map((service) => service.id) :
+                                                dialogActionState[0].data.service_providers ? dialogActionState[0].data.service_providers?.map((service) => service.id)
+                                                    : [0] : dialogActionState[0].data.service_providers ? dialogActionState[0].data.service_providers?.map((service) => service.id) : [0]
+                                    }
+                                    onChange={handleChange}
+                                    input={<OutlinedInput label={t('Services')} />}
+                                    renderValue={(selected: any) => {
+                                        const arr: any = [];
+                                        services?.forEach((service) => {
+                                            if (selected.find((x: any) => x === service.id)) {
+                                                arr.push(service.default_name);
+                                            }
+                                        })
+                                        return arr.join(", ");
+                                    }}
+                                    MenuProps={MenuProps}
+                                >
+                                    {services?.map((service) => {
+                                        return (
+                                            <MenuItem key={service.default_name} value={service.id}>
+                                                <Checkbox checked={personName?.indexOf(service.id) > -1} />
+                                                <ListItemText primary={service.default_name} />
+                                            </MenuItem>
+                                        )
+                                    }
+                                    )}
+                                </Select>
+                            </FormControl>
                         </>
                     )
                 }
