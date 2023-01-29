@@ -1,4 +1,4 @@
-import React, { RefObject, useState } from 'react'
+import React, { RefObject, useState, useEffect } from 'react'
 import { Checkbox, FormControl, InputLabel, ListItemText, MenuItem, OutlinedInput, Select, SelectChangeEvent, TextField } from '@mui/material';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { dialogAction } from '../../store/atom';
@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 import Permissions from './Permissions';
 import { Lang } from '../../pages/Users/types';
 import CInput from '../CInput';
-import { useEffect } from 'react';
 import { CallApi } from '../../api/CallApi';
 import ApiList from '../../api/ApiList';
 type Props = {
@@ -101,8 +100,13 @@ const EditForm = ((props: Props) => {
                 setServices(res.data.data.services);
             })
         }
+        setDialogActionState({
+            ...dialogActionState[0],
+            submitData: { ...dialogActionState[0].data }
+        })
         // eslint-disable-next-line
     }, []);
+
 
     return (
         <>
@@ -116,11 +120,7 @@ const EditForm = ((props: Props) => {
                                 name="full_name"
                                 label={t('Full Name')}
                                 type='text'
-                                value={
-                                    Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                        dialogActionState[0].submitData.full_name?.length! > 0 ?
-                                            dialogActionState[0].submitData.full_name :
-                                            dialogActionState[0].data.full_name ? dialogActionState[0].data.full_name : '' : dialogActionState[0].data.full_name ? dialogActionState[0].data.full_name : ''}
+                                value={dialogActionState[0].submitData.full_name}
                                 onChange={(e) => formChange(e)}
                                 sx={{ mb: 3 }}
                             />
@@ -204,11 +204,7 @@ const EditForm = ((props: Props) => {
                                 id="phoneNumber"
                                 name="phone_number"
                                 label={t('Phone Number')}
-                                value={
-                                    Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                        dialogActionState[0].submitData.phone_number?.length! > 0 ?
-                                            dialogActionState[0].submitData.phone_number :
-                                            dialogActionState[0].data.phone_number ? dialogActionState[0].data.phone_number : '' : dialogActionState[0].data.phone_number ? dialogActionState[0].data.phone_number : ''}
+                                value={dialogActionState[0].submitData.phone_number}
                                 onChange={(e) => formChange(e)}
                                 sx={{ mb: 3 }}
                             />
@@ -221,11 +217,7 @@ const EditForm = ((props: Props) => {
                                 id="provider_email"
                                 name="email"
                                 label={t('Email')}
-                                value={
-                                    Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                        dialogActionState[0].submitData.email?.length! > 0 ?
-                                            dialogActionState[0].submitData.email
-                                            : dialogActionState[0].data.email ? dialogActionState[0].data.email : '' : dialogActionState[0].data.email ? dialogActionState[0].data.email : ''}
+                                value={dialogActionState[0].submitData.email}
                                 onChange={(e) => formChange(e)}
                                 sx={{ mb: 3 }}
                             />
@@ -240,10 +232,7 @@ const EditForm = ((props: Props) => {
                                     id="company_name"
                                     name="company_name"
                                     label={t('company_name')}
-                                    value={Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                        dialogActionState[0].submitData.company_name?.length! > 0 ?
-                                            dialogActionState[0].submitData.company_name :
-                                            dialogActionState[0].data.company_name ? dialogActionState[0].data.company_name : '' : dialogActionState[0].data.company_name ? dialogActionState[0].data.company_name : ''}
+                                    value={dialogActionState[0].submitData.company_name}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -252,10 +241,7 @@ const EditForm = ((props: Props) => {
                                     id="provider_email"
                                     name="provider_email"
                                     label={t('Email')}
-                                    value={Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                        dialogActionState[0].submitData.provider_email?.length! > 0 ?
-                                            dialogActionState[0].submitData.provider_email :
-                                            dialogActionState[0].data.provider_email ? dialogActionState[0].data.provider_email : '' : dialogActionState[0].data.provider_email ? dialogActionState[0].data.provider_email : ''}
+                                    value={dialogActionState[0].submitData.provider_email}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -264,10 +250,7 @@ const EditForm = ((props: Props) => {
                                     id="first_name"
                                     name="first_name"
                                     label={t('first_name')}
-                                    value={Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                        dialogActionState[0].submitData.first_name?.length! > 0 ?
-                                            dialogActionState[0].submitData.first_name :
-                                            dialogActionState[0].data.first_name ? dialogActionState[0].data.first_name : '' : dialogActionState[0].data.first_name ? dialogActionState[0].data.first_name : ''}
+                                    value={dialogActionState[0].submitData.first_name}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -276,10 +259,7 @@ const EditForm = ((props: Props) => {
                                     id="second_name"
                                     name="second_name"
                                     label={t('second_name')}
-                                    value={Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                        dialogActionState[0].submitData.second_name?.length! > 0 ?
-                                            dialogActionState[0].submitData.second_name :
-                                            dialogActionState[0].data.second_name ? dialogActionState[0].data.second_name : '' : dialogActionState[0].data.second_name ? dialogActionState[0].data.second_name : ''}
+                                    value={dialogActionState[0].submitData.second_name}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -288,10 +268,7 @@ const EditForm = ((props: Props) => {
                                     id="provider_phone_number"
                                     name="provider_phone_number"
                                     label={t('Phone Number')}
-                                    value={Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                        dialogActionState[0].submitData.provider_phone_number?.length! > 0 ?
-                                            dialogActionState[0].submitData.provider_phone_number :
-                                            dialogActionState[0].data.provider_phone_number ? dialogActionState[0].data.provider_phone_number : '' : dialogActionState[0].data.provider_phone_number ? dialogActionState[0].data.provider_phone_number : ''}
+                                    value={dialogActionState[0].submitData.provider_phone_number}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -300,10 +277,7 @@ const EditForm = ((props: Props) => {
                                     id="provider_phone_number_2"
                                     name="provider_phone_number_2"
                                     label={`${t('Phone Number')} 2`}
-                                    value={Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                        dialogActionState[0].submitData?.provider_phone_number_2?.length! > 0 ?
-                                            dialogActionState[0].submitData.provider_phone_number_2 :
-                                            dialogActionState[0].data.provider_phone_number_2 ? dialogActionState[0].data.provider_phone_number_2 : '' : dialogActionState[0].data.provider_phone_number_2 ? dialogActionState[0].data.provider_phone_number_2 : ''}
+                                    value={dialogActionState[0].submitData?.provider_phone_number_2}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -312,10 +286,7 @@ const EditForm = ((props: Props) => {
                                     id="job_title"
                                     name="job_title"
                                     label={t('job_title')}
-                                    value={Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                        dialogActionState[0].submitData.job_title?.length! > 0 ?
-                                            dialogActionState[0].submitData.job_title :
-                                            dialogActionState[0].data.job_title ? dialogActionState[0].data.job_title : '' : dialogActionState[0].data.job_title ? dialogActionState[0].data.job_title : ''}
+                                    value={dialogActionState[0].submitData.job_title}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -325,13 +296,7 @@ const EditForm = ((props: Props) => {
                                         labelId="demo-multiple-checkbox-label"
                                         id="demo-multiple-checkbox"
                                         multiple
-                                        value={
-                                            Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                                dialogActionState[0].submitData?.service_providers?.length! > 0 ?
-                                                    dialogActionState[0].submitData.service_providers?.map((service) => service.id) :
-                                                    dialogActionState[0].data.service_providers ? dialogActionState[0].data.service_providers?.map((service) => service.id)
-                                                        : [0] : dialogActionState[0].data.service_providers ? dialogActionState[0].data.service_providers?.map((service) => service.id) : [0]
-                                        }
+                                        value={dialogActionState[0].submitData.service_providers?.map((service) => service.id)}
                                         onChange={handleChange}
                                         input={<OutlinedInput label={t('Services')} />}
                                         renderValue={(selected: any) => {
@@ -367,11 +332,7 @@ const EditForm = ((props: Props) => {
                                     id="ar_name"
                                     name="ar_name"
                                     label={t('ar_name')}
-                                    value={
-                                        Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                            dialogActionState[0].submitData?.ar_name?.length! > 0 ? dialogActionState[0].submitData?.ar_name :
-                                                dialogActionState[0].data.all_lang?.length! > 0 ? dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 1)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 1)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 1)[0].name
-                                    }
+                                    value={dialogActionState[0].submitData?.ar_name}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -380,11 +341,7 @@ const EditForm = ((props: Props) => {
                                     id="en_name"
                                     name="en_name"
                                     label={t('en_name')}
-                                    value={
-                                        Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                            dialogActionState[0].submitData?.en_name?.length! > 0 ? dialogActionState[0].submitData?.en_name :
-                                                dialogActionState[0].data.all_lang?.length! > 0 ? dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 2)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 2)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 2)[0].name
-                                    }
+                                    value={dialogActionState[0].submitData?.en_name}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -393,11 +350,7 @@ const EditForm = ((props: Props) => {
                                     id="ku_name"
                                     name="ku_name"
                                     label={t('ku_name')}
-                                    value={
-                                        Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                            dialogActionState[0].submitData?.ku_name?.length! > 0 ? dialogActionState[0].submitData?.ku_name :
-                                                dialogActionState[0].data.all_lang?.length! > 0 ? dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 3)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 3)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 3)[0].name
-                                    }
+                                    value={dialogActionState[0].submitData?.ku_name}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />

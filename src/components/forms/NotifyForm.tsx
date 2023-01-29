@@ -28,11 +28,7 @@ const NotifyForm = (props: Props) => {
                 id="ar_title"
                 name="ar_title"
                 label={t('ar_title')}
-                value={
-                    Object.keys(dialogActionState[0].submitData).length > 0 ?
-                        dialogActionState[0].submitData.ar_title ?
-                            dialogActionState[0].submitData.ar_title :
-                            dialogActionState[0].data?.ar_title ? dialogActionState[0].data?.ar_title : '' : dialogActionState[0].data?.ar_title ? dialogActionState[0].data?.ar_title : ''}
+                value={dialogActionState[0].submitData.ar_title || ''}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />
@@ -41,11 +37,7 @@ const NotifyForm = (props: Props) => {
                 id="ar_body"
                 name="ar_body"
                 label={t('ar_body')}
-                value={
-                    Object.keys(dialogActionState[0].submitData).length > 0 ?
-                        dialogActionState[0].submitData.ar_body ?
-                            dialogActionState[0].submitData.ar_body :
-                            dialogActionState[0].data?.ar_body ? dialogActionState[0].data?.ar_body : '' : dialogActionState[0].data?.ar_body ? dialogActionState[0].data?.ar_body : ''}
+                value={dialogActionState[0].submitData.ar_body || ''}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />
@@ -54,11 +46,7 @@ const NotifyForm = (props: Props) => {
                 id="en_title"
                 name="en_title"
                 label={t('en_title')}
-                value={
-                    Object.keys(dialogActionState[0].submitData).length > 0 ?
-                        dialogActionState[0].submitData.en_title ?
-                            dialogActionState[0].submitData.en_title :
-                            dialogActionState[0].data?.en_title ? dialogActionState[0].data?.en_title : '' : dialogActionState[0].data?.en_title ? dialogActionState[0].data?.en_title : ''}
+                value={dialogActionState[0].submitData.en_title || ''}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />
@@ -67,11 +55,7 @@ const NotifyForm = (props: Props) => {
                 id="en_body"
                 name="en_body"
                 label={t('en_body')}
-                value={
-                    Object.keys(dialogActionState[0].submitData).length > 0 ?
-                        dialogActionState[0].submitData.en_body ?
-                            dialogActionState[0].submitData.en_body :
-                            dialogActionState[0].data?.en_body ? dialogActionState[0].data?.en_body : '' : dialogActionState[0].data?.en_body ? dialogActionState[0].data?.en_body : ''}
+                value={dialogActionState[0].submitData.en_body || ''}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />
@@ -80,11 +64,7 @@ const NotifyForm = (props: Props) => {
                 id="ku_title"
                 name="ku_title"
                 label={t('ku_title')}
-                value={
-                    Object.keys(dialogActionState[0].submitData).length > 0 ?
-                        dialogActionState[0].submitData.ku_title ?
-                            dialogActionState[0].submitData.ku_title :
-                            dialogActionState[0].data?.ku_title ? dialogActionState[0].data?.ku_title : '' : dialogActionState[0].data?.ku_title ? dialogActionState[0].data?.ku_title : ''}
+                value={dialogActionState[0].submitData.ku_title || ''}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />
@@ -93,11 +73,7 @@ const NotifyForm = (props: Props) => {
                 id="ku_body"
                 name="ku_body"
                 label={t('ku_body')}
-                value={
-                    Object.keys(dialogActionState[0].submitData).length > 0 ?
-                        dialogActionState[0].submitData.ku_body ?
-                            dialogActionState[0].submitData.ku_body :
-                            dialogActionState[0].data?.ku_body ? dialogActionState[0].data?.ku_body : '' : dialogActionState[0].data?.ku_body ? dialogActionState[0].data?.ku_body : ''}
+                value={dialogActionState[0].submitData.ku_body || ''}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />

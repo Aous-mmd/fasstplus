@@ -20,6 +20,10 @@ const OrderStatusForm = (props: Props) => {
         (async () => {
             await CallApi.get(ApiList.getOrderProviders, { params: { service_id: dialogActionState[0].data?.service_id } }).then(response => setProvider(response.data.data.providers));
         })();
+        setDialogActionState({
+            ...dialogActionState[0],
+            submitData: { ...dialogActionState[0].data }
+        });
     }, [])
     const formChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         setDialogActionState({
@@ -53,11 +57,7 @@ const OrderStatusForm = (props: Props) => {
                         id="price"
                         name="price"
                         label={t('price')}
-                        value={
-                            Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                dialogActionState[0].submitData.price ?
-                                    dialogActionState[0].submitData.price :
-                                    dialogActionState[0].data?.price ? dialogActionState[0].data?.price : '' : dialogActionState[0].data?.price ? dialogActionState[0].data?.price : ''}
+                        value={dialogActionState[0].submitData.price}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -70,11 +70,7 @@ const OrderStatusForm = (props: Props) => {
                         rows={3}
                         name="reject_reason"
                         label={t('reject_reason')}
-                        value={
-                            Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                dialogActionState[0].submitData.reject_reason ?
-                                    dialogActionState[0].submitData.reject_reason :
-                                    dialogActionState[0].data.reject_reason ? dialogActionState[0].data.reject_reason : '' : dialogActionState[0].data.reject_reason ? dialogActionState[0].data.reject_reason : ''}
+                        value={dialogActionState[0].submitData.reject_reason}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -86,11 +82,7 @@ const OrderStatusForm = (props: Props) => {
                         name="order_date"
                         type='datetime-local'
                         label={t('order_date')}
-                        value={
-                            Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                dialogActionState[0].submitData.order_date ?
-                                    dialogActionState[0].submitData.order_date :
-                                    dialogActionState[0].data.order_date ? dialogActionState[0].data.order_date : '' : dialogActionState[0].data.order_date ? dialogActionState[0].data.order_date : ''}
+                        value={dialogActionState[0].submitData.order_date}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -102,12 +94,7 @@ const OrderStatusForm = (props: Props) => {
                         name="finish_date"
                         type='date'
                         label={t('finish_date')}
-                        value={
-                            Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                dialogActionState[0].submitData.finish_date ?
-                                    dialogActionState[0].submitData.finish_date :
-                                    dialogActionState[0].data.finish_date ?
-                                        dialogActionState[0].data.finish_date : '' : dialogActionState[0].data.finish_date ? dialogActionState[0].data.finish_date : ''}
+                        value={dialogActionState[0].submitData.finish_date}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -119,7 +106,7 @@ const OrderStatusForm = (props: Props) => {
                             labelId="Status"
                             id="select-Status"
                             name='status'
-                            value={dialogActionState[0].submitData?.status ? dialogActionState[0].submitData?.status : dialogActionState[0].data?.status}
+                            value={dialogActionState[0].submitData?.status}
                             onChange={handleChange}
                         >
                             <MenuItem value="Approved">{t('Approved')}</MenuItem>
@@ -137,7 +124,7 @@ const OrderStatusForm = (props: Props) => {
                             id="select-provider"
                             disabled={dialogActionState[0].submitData?.status !== 'Approved'}
                             name='provider_id'
-                            value={dialogActionState[0].submitData?.provider_id ? dialogActionState[0].submitData?.provider_id : dialogActionState[0].data?.provider_id}
+                            value={dialogActionState[0].submitData?.provider_id}
                             onChange={handleChange}
                         >
                             {

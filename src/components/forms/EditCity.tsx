@@ -26,11 +26,7 @@ const EditCity = () => {
                 id="order"
                 name="order"
                 label={t('order')}
-                value={
-                    Object.keys(dialogActionState[0].submitData).length > 0 ?
-                        dialogActionState[0].submitData.order ?
-                            dialogActionState[0].submitData.order :
-                            dialogActionState[0].data.order ? dialogActionState[0].data.order : '' : dialogActionState[0].data.order ? dialogActionState[0].data.order : ''}
+                value={dialogActionState[0].submitData.order}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />
@@ -39,10 +35,7 @@ const EditCity = () => {
                 id="ar_name"
                 name="ar_name"
                 label={t('ar_name')}
-                value={
-                    Object.keys(dialogActionState[0].submitData).length > 0 ?
-                        dialogActionState[0].submitData?.ar_name?.length! > 0 ? dialogActionState[0].submitData?.ar_name :
-                            dialogActionState[0].data.all_lang?.length! > 0 ? dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 1)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 1)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 1)[0].name}
+                value={dialogActionState[0].submitData?.ar_name}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />
@@ -51,10 +44,7 @@ const EditCity = () => {
                 id="en_name"
                 name="en_name"
                 label={t('en_name')}
-                value={
-                    Object.keys(dialogActionState[0].submitData).length > 0 ?
-                        dialogActionState[0].submitData?.en_name?.length! > 0 ? dialogActionState[0].submitData?.en_name :
-                            dialogActionState[0].data.all_lang?.length! > 0 ? dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 2)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 2)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 2)[0].name}
+                value={dialogActionState[0].submitData?.en_name}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />
@@ -63,10 +53,7 @@ const EditCity = () => {
                 id="ku_name"
                 name="ku_name"
                 label={t('ku_name')}
-                value={
-                    Object.keys(dialogActionState[0].submitData).length > 0 ?
-                        dialogActionState[0].submitData?.ku_name?.length! > 0 ? dialogActionState[0].submitData?.ku_name :
-                            dialogActionState[0].data.all_lang?.length! > 0 ? dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 3)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 3)[0].name : dialogActionState[0].data.all_lang?.filter((lang) => lang.lang_id === 3)[0].name}
+                value={dialogActionState[0].submitData?.ku_name}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />

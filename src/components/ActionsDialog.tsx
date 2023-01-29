@@ -227,6 +227,11 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                     provider_id: dialogActionState[0].submitData?.provider_id
                 }
             }
+        } else if (role === 'notifications') {
+            if (dialogActionState[0].add) {
+                ApiUrl = ApiList.addNotifications;
+                sendData = { ...dialogActionState[0].submitData };
+            }
         }
         setDialogActionState({ ...dialogActionState[0], submit: true });
         await CallApi.post(ApiUrl!, { ...sendData }, { headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "multipart/form-data" } }).then(res => {
@@ -447,7 +452,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 </Box>
                 {
                     (((role === 'client') || ((role === 'admin') && !dialogActionState[0].add && !dialogActionState[0].edit_role))
-                        || (role === 'services' && !dialogActionState[0].edit) || (role === 'providers') || (role === 'orders' && !dialogActionState[0].edit && !dialogActionState[0].add) || (role === 'cities') || (role === 'terms') || role === 'reasons')
+                        || (role === 'services' && !dialogActionState[0].edit) || (role === 'providers') || (role === 'notifications') || (role === 'orders' && !dialogActionState[0].edit && !dialogActionState[0].add) || (role === 'cities') || (role === 'terms') || role === 'reasons')
 
                     && (
                         <DialogActions>
@@ -456,7 +461,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                                 onClick={() => saveData()}
                                 disabled={
                                     (
-                                        ((role === 'client' || role === 'admin' || role === 'orders' || role === 'providers' || role === 'cities' || role === 'terms' || role === 'reasons') && !dialogActionState[0].editPassword)
+                                        ((role === 'client' || role === 'admin' || role === 'orders' || (role === 'notifications') || role === 'providers' || role === 'cities' || role === 'terms' || role === 'reasons') && !dialogActionState[0].editPassword)
                                         || dialogActionState[0].valid || dialogActionState[0].activate || dialogActionState[0].delete) ? false : true
                                 } />
                         </DialogActions>
