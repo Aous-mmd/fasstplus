@@ -110,5 +110,9 @@
     "Edit Order": "Edit Order",
     "neighborhood": "neighborhood",
     "details": "Details",
-    "reject_reason": "Reject Reason"
+    "reject_reason": "Reject Reason",
+    "most_orders_users": "Most Orders Users",
+    "most_orders_providers": "Most Orders Providers",
+    "top_time_service": "Top Time Service",
+    "top_rated_service": "Top Rate Service"
 }
