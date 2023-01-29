@@ -15,6 +15,7 @@ import { AddForm, ConfirmForm, EditPassword, EditForm } from './forms';
 import EditCity from './forms/EditCity';
 import OrderForm from './forms/OrderForm';
 import OrderStatusForm from './forms/OrderStatusForm';
+import NotifyForm from './forms/NotifyForm';
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -360,7 +361,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                         )
                     }
                     {
-                        (role !== 'orders' && dialogActionState[0].add) && (
+                        (role !== 'orders' && role !== 'notifications' && dialogActionState[0].add) && (
                             <AddForm
                                 selectedRadio={selectedRadio}
                                 selectedChecked={selectedChecked}
@@ -436,6 +437,11 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                                     sx={{ mb: 3 }}
                                 />
                             </>
+                        )
+                    }
+                    {
+                        role === 'notifications' && (
+                            <NotifyForm />
                         )
                     }
                 </Box>

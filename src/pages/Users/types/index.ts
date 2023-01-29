@@ -1,3 +1,4 @@
+import { Notification } from "../../Notifications/types";
 import { Provider } from "../../Services/types";
 
 export type TClients = {
@@ -107,4 +108,4 @@ type OptionalData = {
     status?: string;
 }
 
-export type TSData = Partial<User & Admin & Service & Provider & OptionalData>;
+export type TSData = Partial<User & Admin & Service & Provider & Notification & OptionalData>;

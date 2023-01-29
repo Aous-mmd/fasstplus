@@ -115,5 +115,12 @@
     "most_orders_users": "Most Orders Users",
     "most_orders_providers": "Most Orders Providers",
     "top_time_service": "Top Time Service",
-    "top_rated_service": "Top Rate Service"
+    "top_rated_service": "Top Rate Service",
+    "add_notifications": "Add New Notifications",
+    "ar_title": "Arabic Title",
+    "ar_body": "Arabic Body",
+    "en_title": "Arabic Title",
+    "en_body": "Arabic Body",
+    "ku_title": "Arabic Title",
+    "ku_body": "Arabic Body"
 }

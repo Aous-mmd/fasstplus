@@ -5,6 +5,7 @@ import { CallApi } from '../api/CallApi';
 import { TPolicy, TProvidersData } from '../pages/Services/types';
 import { TAdminsData, TClientsData, TservicesData } from '../pages/Users/types';
 import { TOrders } from '../pages/Orders/types';
+import { TNotifications } from '../pages/Notifications/types';
 
 type pageOptions = {
     page: number;
@@ -60,7 +61,7 @@ const useFetchData = (uurl: string, options?: pageOptions) => {
         return { data: Tdata?.data, isSuccess };
     }
 
-    const tempData = Tdata?.data as (NonNullable<Partial<TAdminsData & TClientsData & TservicesData & TProvidersData & TPolicy & TOrders>>);
+    const tempData = Tdata?.data as (NonNullable<Partial<TAdminsData & TClientsData & TservicesData & TProvidersData & TPolicy & TOrders & TNotifications>>);
     const pageInfo = Tdata?.data.count;
     if (tempData) {
         const testData: any[] = Object.values(tempData).filter((item) => Array.isArray(item));
