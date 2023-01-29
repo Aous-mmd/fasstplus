@@ -57,7 +57,7 @@ const OrderStatusForm = (props: Props) => {
                         id="price"
                         name="price"
                         label={t('price')}
-                        value={dialogActionState[0].submitData.price}
+                        value={dialogActionState[0].submitData.price || ''}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -70,7 +70,7 @@ const OrderStatusForm = (props: Props) => {
                         rows={3}
                         name="reject_reason"
                         label={t('reject_reason')}
-                        value={dialogActionState[0].submitData.reject_reason}
+                        value={dialogActionState[0].submitData.reject_reason || ''}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -82,7 +82,7 @@ const OrderStatusForm = (props: Props) => {
                         name="order_date"
                         type='datetime-local'
                         label={t('order_date')}
-                        value={dialogActionState[0].submitData.order_date}
+                        value={dialogActionState[0].submitData.order_date || ''}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -94,7 +94,7 @@ const OrderStatusForm = (props: Props) => {
                         name="finish_date"
                         type='date'
                         label={t('finish_date')}
-                        value={dialogActionState[0].submitData.finish_date}
+                        value={dialogActionState[0].submitData.finish_date || ''}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -106,7 +106,7 @@ const OrderStatusForm = (props: Props) => {
                             labelId="Status"
                             id="select-Status"
                             name='status'
-                            value={dialogActionState[0].submitData?.status}
+                            value={dialogActionState[0].submitData?.status || ''}
                             onChange={handleChange}
                         >
                             <MenuItem value="Approved">{t('Approved')}</MenuItem>
@@ -124,7 +124,7 @@ const OrderStatusForm = (props: Props) => {
                             id="select-provider"
                             disabled={dialogActionState[0].submitData?.status !== 'Approved'}
                             name='provider_id'
-                            value={dialogActionState[0].submitData?.provider_id}
+                            value={dialogActionState[0].submitData?.provider_id || ''}
                             onChange={handleChange}
                         >
                             {

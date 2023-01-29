@@ -67,7 +67,7 @@ const OrderForm = () => {
                         id="title"
                         name="title"
                         label={t('title')}
-                        value={dialogActionState[0].submitData.title}
+                        value={dialogActionState[0].submitData.title || ''}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -78,7 +78,7 @@ const OrderForm = () => {
                         fullWidth
                         name="price"
                         label={t('price')}
-                        value={dialogActionState[0].submitData.price}
+                        value={dialogActionState[0].submitData.price || ''}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -89,7 +89,7 @@ const OrderForm = () => {
                         fullWidth
                         name="neighborhood"
                         label={t('neighborhood')}
-                        value={dialogActionState[0].submitData.neighborhood}
+                        value={dialogActionState[0].submitData.neighborhood || ''}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -100,7 +100,7 @@ const OrderForm = () => {
                         id="order_date"
                         name="order_date"
                         type='datetime-local'
-                        value={dialogActionState[0].submitData.order_date}
+                        value={dialogActionState[0].submitData.order_date || ''}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -113,7 +113,7 @@ const OrderForm = () => {
                 multiline
                 rows={3}
                 label={t('details')}
-                value={dialogActionState[0].submitData.details}
+                value={dialogActionState[0].submitData.details || ''}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />
@@ -125,7 +125,7 @@ const OrderForm = () => {
                             labelId="city"
                             id="select-city"
                             name='city_id'
-                            value={dialogActionState[0].submitData?.city_id}
+                            value={dialogActionState[0].submitData?.city_id || ''}
                             onChange={handleChange}
                         >
                             {
@@ -141,7 +141,7 @@ const OrderForm = () => {
                             labelId="user"
                             id="select-user"
                             name='user_id'
-                            value={dialogActionState[0].submitData?.user_id}
+                            value={dialogActionState[0].submitData?.user_id || ''}
                             onChange={handleChange}
                         >
                             {
@@ -157,7 +157,7 @@ const OrderForm = () => {
                             labelId="service"
                             id="select-service"
                             name='service_id'
-                            value={dialogActionState[0].submitData?.service_id}
+                            value={dialogActionState[0].submitData?.service_id || ''}
                             onChange={handleChange}
                         >
                             {
@@ -174,7 +174,7 @@ const OrderForm = () => {
                             id="select-provider"
                             disabled={providers?.length > 0 ? false : !providers ? false : true}
                             name='provider_id'
-                            value={dialogActionState[0].submitData?.provider_id}
+                            value={dialogActionState[0].submitData?.provider_id || ''}
                             onChange={handleChange}
                         >
                             {
@@ -199,7 +199,7 @@ const OrderForm = () => {
                                     multiline
                                     rows={3}
                                     label={t('note')}
-                                    value={dialogActionState[0].submitData.note}
+                                    value={dialogActionState[0].submitData.note || ''}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -211,7 +211,7 @@ const OrderForm = () => {
                                     id="finish_date"
                                     name="finish_date"
                                     label={t('finish_date')}
-                                    value={dialogActionState[0].submitData.finish_date}
+                                    value={dialogActionState[0].submitData.finish_date || ''}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />

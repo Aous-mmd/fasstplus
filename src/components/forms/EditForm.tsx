@@ -120,7 +120,7 @@ const EditForm = ((props: Props) => {
                                 name="full_name"
                                 label={t('Full Name')}
                                 type='text'
-                                value={dialogActionState[0].submitData.full_name}
+                                value={dialogActionState[0].submitData.full_name || ''}
                                 onChange={(e) => formChange(e)}
                                 sx={{ mb: 3 }}
                             />
@@ -204,7 +204,7 @@ const EditForm = ((props: Props) => {
                                 id="phoneNumber"
                                 name="phone_number"
                                 label={t('Phone Number')}
-                                value={dialogActionState[0].submitData.phone_number}
+                                value={dialogActionState[0].submitData.phone_number || ''}
                                 onChange={(e) => formChange(e)}
                                 sx={{ mb: 3 }}
                             />
@@ -217,7 +217,7 @@ const EditForm = ((props: Props) => {
                                 id="provider_email"
                                 name="email"
                                 label={t('Email')}
-                                value={dialogActionState[0].submitData.email}
+                                value={dialogActionState[0].submitData.email || ''}
                                 onChange={(e) => formChange(e)}
                                 sx={{ mb: 3 }}
                             />
@@ -232,7 +232,7 @@ const EditForm = ((props: Props) => {
                                     id="company_name"
                                     name="company_name"
                                     label={t('company_name')}
-                                    value={dialogActionState[0].submitData.company_name}
+                                    value={dialogActionState[0].submitData.company_name || ''}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -241,7 +241,7 @@ const EditForm = ((props: Props) => {
                                     id="provider_email"
                                     name="provider_email"
                                     label={t('Email')}
-                                    value={dialogActionState[0].submitData.provider_email}
+                                    value={dialogActionState[0].submitData.provider_email || ''}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -250,7 +250,7 @@ const EditForm = ((props: Props) => {
                                     id="first_name"
                                     name="first_name"
                                     label={t('first_name')}
-                                    value={dialogActionState[0].submitData.first_name}
+                                    value={dialogActionState[0].submitData.first_name || ''}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -259,7 +259,7 @@ const EditForm = ((props: Props) => {
                                     id="second_name"
                                     name="second_name"
                                     label={t('second_name')}
-                                    value={dialogActionState[0].submitData.second_name}
+                                    value={dialogActionState[0].submitData.second_name || ''}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -268,7 +268,7 @@ const EditForm = ((props: Props) => {
                                     id="provider_phone_number"
                                     name="provider_phone_number"
                                     label={t('Phone Number')}
-                                    value={dialogActionState[0].submitData.provider_phone_number}
+                                    value={dialogActionState[0].submitData.provider_phone_number || ''}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -277,7 +277,7 @@ const EditForm = ((props: Props) => {
                                     id="provider_phone_number_2"
                                     name="provider_phone_number_2"
                                     label={`${t('Phone Number')} 2`}
-                                    value={dialogActionState[0].submitData?.provider_phone_number_2}
+                                    value={dialogActionState[0].submitData?.provider_phone_number_2 || ''}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -286,7 +286,7 @@ const EditForm = ((props: Props) => {
                                     id="job_title"
                                     name="job_title"
                                     label={t('job_title')}
-                                    value={dialogActionState[0].submitData.job_title}
+                                    value={dialogActionState[0].submitData.job_title || ''}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -332,7 +332,7 @@ const EditForm = ((props: Props) => {
                                     id="ar_name"
                                     name="ar_name"
                                     label={t('ar_name')}
-                                    value={dialogActionState[0].submitData?.ar_name}
+                                    value={dialogActionState[0].submitData?.ar_name || ''}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -341,7 +341,7 @@ const EditForm = ((props: Props) => {
                                     id="en_name"
                                     name="en_name"
                                     label={t('en_name')}
-                                    value={dialogActionState[0].submitData?.en_name}
+                                    value={dialogActionState[0].submitData?.en_name || ''}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -350,7 +350,7 @@ const EditForm = ((props: Props) => {
                                     id="ku_name"
                                     name="ku_name"
                                     label={t('ku_name')}
-                                    value={dialogActionState[0].submitData?.ku_name}
+                                    value={dialogActionState[0].submitData?.ku_name || ''}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />

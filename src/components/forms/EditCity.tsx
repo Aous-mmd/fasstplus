@@ -26,7 +26,7 @@ const EditCity = () => {
                 id="order"
                 name="order"
                 label={t('order')}
-                value={dialogActionState[0].submitData.order}
+                value={dialogActionState[0].submitData.order || ''}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />
@@ -35,7 +35,7 @@ const EditCity = () => {
                 id="ar_name"
                 name="ar_name"
                 label={t('ar_name')}
-                value={dialogActionState[0].submitData?.ar_name}
+                value={dialogActionState[0].submitData.ar_name || ''}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />
@@ -44,7 +44,7 @@ const EditCity = () => {
                 id="en_name"
                 name="en_name"
                 label={t('en_name')}
-                value={dialogActionState[0].submitData?.en_name}
+                value={dialogActionState[0].submitData.en_name || ''}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />
@@ -53,7 +53,7 @@ const EditCity = () => {
                 id="ku_name"
                 name="ku_name"
                 label={t('ku_name')}
-                value={dialogActionState[0].submitData?.ku_name}
+                value={dialogActionState[0].submitData.ku_name || ''}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />
