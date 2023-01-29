@@ -17,8 +17,9 @@ const CSubMenu: React.FC<Props> = ({ menu, selected, setSelected, location }) =>
         const lists = Object.values(item);
         if (lists[0] === location || lists[1] === location) return item.name;
     });
+
     return (
-        <SubMenu label={menu.name} icon={menu.icon} defaultOpen={selected ? (test?.[0] === selected || test?.[1] === selected) : ((test?.[0] !== undefined && test?.[0] === location) || (test?.[1] !== undefined && test?.[1] === location))}>
+        <SubMenu label={menu.name} icon={menu.icon} defaultOpen={selected ? (test?.[0] === selected || test?.[1] === selected || test?.[2] === selected) : ((test?.[0] !== undefined && test?.[0] === location) || (test?.[1] !== undefined && test?.[1] === location) || (test?.[2] !== undefined && test?.[2] === location))}>
             {
                 menu?.items?.map((item: Record<string, any>) =>
                     <CMenuItem

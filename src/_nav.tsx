@@ -97,7 +97,7 @@ export const _Nav = (): TMenu[] => {
         },
         {
             name: t("Statistics"),
-            to: "/Statistics",
+            to: "/statistics",
             icon: <Report />,
         },
         {

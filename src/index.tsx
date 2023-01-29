@@ -6,6 +6,7 @@ import './index.css'
 import './i18n/i18n';
 import { ProSidebarProvider } from 'react-pro-sidebar';
 import { RecoilRoot } from 'recoil';
+import '@coreui/coreui/dist/css/coreui.min.css'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

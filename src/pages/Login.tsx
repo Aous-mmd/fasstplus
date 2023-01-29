@@ -5,7 +5,7 @@ import { CallApi } from '../api/CallApi';
 import ApiList from '../api/ApiList';
 import { Loader } from '../components';
 import { useTranslation } from 'react-i18next';
-import { Avatar, Box, Button, Grid, Paper, TextField, Typography } from '@mui/material';
+import { Avatar, Box, Button, CircularProgress, Grid, Paper, TextField, Typography } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
 
 
@@ -119,7 +119,7 @@ const Login = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              {loads ? '...' : ''}
+              {loads ? <CircularProgress /> : ''}
               Sign In
             </Button>
           </Box>
