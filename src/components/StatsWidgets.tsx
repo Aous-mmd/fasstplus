@@ -3,14 +3,14 @@ import {
     CWidgetStatsA,
     CCol,
     CRow
-} from '@coreui/react'
-import { CChartLine, CChartBar } from '@coreui/react-chartjs';
+} from '@coreui/react';
 import { useTranslation } from 'react-i18next';
-import { TStats } from '../pages/Stats/types';
+import { TStats, TStatsOrder } from '../pages/Stats/types';
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 
 type Props = {
     data: TStats;
+    Orders: TStatsOrder;
 }
 
 const StatsWidgets = (props: Props) => {
@@ -50,7 +50,39 @@ const StatsWidgets = (props: Props) => {
                 />
             </CCol>
             <CCol sm={12}>
-                <Typography>{t('most_orders_users')}</Typography>
+                <Typography variant='h5' mt={2} mb={2}>{t('last_three_orders')}</Typography>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>{t('type')}</TableCell>
+                                <TableCell align="left">{t('Status')}</TableCell>
+                                <TableCell align="left">{t('User')}</TableCell>
+                                <TableCell align="left">{t('finish_date')}</TableCell>
+                                <TableCell align="left">{t('price')}</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {props.Orders?.orders.map((row) => (
+                                <TableRow
+                                    key={row.id}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    <TableCell component="th" scope="row">
+                                        {row.type}
+                                    </TableCell>
+                                    <TableCell align="left">{row.status}</TableCell>
+                                    <TableCell align="left">{row.user.full_name}</TableCell>
+                                    <TableCell align="left">{row.finish_date}</TableCell>
+                                    <TableCell align="left">{row.price}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </CCol>
+            <CCol sm={12}>
+                <Typography variant='h5' mt={2} mb={2}>{t('most_orders_users')}</Typography>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
@@ -82,7 +114,7 @@ const StatsWidgets = (props: Props) => {
                 </TableContainer>
             </CCol>
             <CCol sm={12} style={{ marginTop: 5 }}>
-                <Typography>{t('most_orders_providers')}</Typography>
+                <Typography variant='h5' mt={2} mb={2}>{t('most_orders_providers')}</Typography>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
@@ -114,7 +146,7 @@ const StatsWidgets = (props: Props) => {
                 </TableContainer>
             </CCol>
             <CCol sm={12} style={{ marginTop: 5 }}>
-                <Typography>{t('top_time_service')}</Typography>
+                <Typography variant='h5' mt={2} mb={2}>{t('top_time_service')}</Typography>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
@@ -137,7 +169,7 @@ const StatsWidgets = (props: Props) => {
                 </TableContainer>
             </CCol>
             <CCol sm={12} style={{ marginTop: 5 }}>
-                <Typography>{t('top_rated_service')}</Typography>
+                <Typography variant='h5' mt={2} mb={2}>{t('top_rated_service')}</Typography>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
