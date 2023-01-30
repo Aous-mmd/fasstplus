@@ -119,8 +119,13 @@
     "add_notifications": "Add New Notifications",
     "ar_title": "Arabic Title",
     "ar_body": "Arabic Body",
-    "en_title": "Arabic Title",
-    "en_body": "Arabic Body",
-    "ku_title": "Arabic Title",
-    "ku_body": "Arabic Body"
+    "en_title": "English Title",
+    "en_body": "English Body",
+    "ku_title": "Kurdish Title",
+    "ku_body": "Kurdish Body",
+    "all_users": "All Users",
+    "specific_user": "Specific User",
+    "start_date": "Start Date",
+    "end_date": "End Date",
+    "export": "Export"
 }

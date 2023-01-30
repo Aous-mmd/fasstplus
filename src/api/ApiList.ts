@@ -55,7 +55,11 @@ const ApiList = {
     getStats: "/admin/statistics/home",
     getLastOrders: "/admin/statistics/last_orders",
     getNotifications: "/admin/notifications/view",
-    addNotifications: "/admin/notifications/create"
+    addNotifications: "/admin/notifications/create",
+    getNotifyUsers: "/admin/notifications/users",
+    getUsersreport: "/admin/reports/users",
+    getOrdersreport: "/admin/reports/orders",
+    getProvidersReport: "/admin/reports/providers"
 }
 
 export default ApiList

@@ -11,6 +11,8 @@ type pageOptions = {
     page: number;
     pageSize: number;
     status: number;
+    start_date?: any;
+    end_date?: any;
 }
 const useFetchData = (uurl: string, options?: pageOptions) => {
     const [Tdata, setData] = useState<any>();
@@ -25,7 +27,9 @@ const useFetchData = (uurl: string, options?: pageOptions) => {
 
                     limit: options.pageSize,
                     offset: options.page * 10,
-                    status: options.status
+                    status: options.status,
+                    start_date: options?.start_date,
+                    end_date: options?.end_date
                 }
             }).then(response => {
                 setData(response.data);
@@ -47,7 +51,7 @@ const useFetchData = (uurl: string, options?: pageOptions) => {
     useEffect(() => {
         fetchData();
         // eslint-disable-next-line
-    }, [options?.page, options?.pageSize, options?.status]);
+    }, [options?.page, options?.pageSize, options?.status, options?.end_date, options?.start_date]);
 
     useEffect(() => {
         resetState();

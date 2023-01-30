@@ -239,10 +239,14 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 }
             }
         } else if (role === 'notifications') {
-            if (dialogActionState[0].add) {
-                ApiUrl = ApiList.addNotifications;
-                sendData = { ...dialogActionState[0].submitData };
-            }
+            ApiUrl = ApiList.addNotifications;
+            sendData = { ...dialogActionState[0].submitData };
+            setDialogActionState({ ...dialogActionState[0], submit: true });
+            await CallApi.post(ApiUrl!, { ...sendData }, { headers: { 'Content-Type': 'application/json' } }).then(res => {
+                setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
+            }).catch(error => setDialogActionState({ ...dialogActionState[0], submit: false }));
+            resetState();
+            return;
         }
         setDialogActionState({ ...dialogActionState[0], submit: true });
         await CallApi.post(ApiUrl!, { ...sendData }, { headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "multipart/form-data" } }).then(res => {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Box, useTheme, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio } from '@mui/material';
-import { DataGrid, GridColDef } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridToolbarContainer, GridToolbarExport } from '@mui/x-data-grid'
 import { colorsTheme } from '../theme'
 import { Add } from '@mui/icons-material';
 import { useRecoilState, useSetRecoilState } from 'recoil';
@@ -22,9 +22,20 @@ type Props = {
     reasons?: boolean;
     providers?: boolean;
     orders?: boolean;
+    startDate?: any;
+    endDate?: any;
+    custom?: boolean;
 }
 
-const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role, status, users, cities, reasons, providers, orders }) => {
+function CustomToolbar() {
+    return (
+        <GridToolbarContainer>
+            <GridToolbarExport sx={{ backgroundColor: 'green' }} />
+        </GridToolbarContainer>
+    );
+}
+
+const CGrid: React.FC<Props> = ({ url, custom, columns, startDate, endDate, addButton, addButtonTitle, role, status, users, cities, reasons, providers, orders }) => {
     const theme = useTheme();
     const colors = colorsTheme(theme.palette.mode);
     const setDialogActionState = useSetRecoilState(dialogAction);
@@ -40,15 +51,15 @@ const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role,
         setCstatus(parseInt((event.target as HTMLInputElement).value));
         setValue(parseInt((event.target as HTMLInputElement).value));
     };
-
-
     const queryOptions = React.useMemo(
         () => ({
             page,
             pageSize,
-            status: Cstatus
+            status: Cstatus,
+            start_date: startDate,
+            end_date: endDate
         }),
-        [page, pageSize, Cstatus],
+        [page, pageSize, Cstatus, startDate, endDate],
     );
     const { data, isSuccess, pageInfo } = useFetchData(url, queryOptions);
 
@@ -57,7 +68,7 @@ const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role,
             <Box width='100%' mb={1} display='flex' justifyContent='space-between' alignItems='center'>
                 <FormControl>
                     {
-                        users && (
+                        (users || role === 'reports') && (
                             <>
                                 <FormLabel id="demo-controlled-radio-buttons-group">{t('Filter')}</FormLabel>
                                 <RadioGroup
@@ -159,6 +170,7 @@ const CGrid: React.FC<Props> = ({ url, columns, addButton, addButtonTitle, role,
                 }}
                 components={{
                     NoRowsOverlay: CustomOverLay,
+                    Toolbar: custom ? CustomToolbar : undefined,
                 }}
                 columns={columns}
             />
