@@ -62,39 +62,40 @@ const OrderForm = () => {
         >
             <Grid container spacing={2}>
                 <Grid item xs={3}>
+                    {t('title')}
                     <TextField
                         fullWidth
                         id="title"
                         name="title"
-                        label={t('title')}
-                        value={dialogActionState[0].submitData.title || ''}
+                        value={dialogActionState[0].submitData.title || dialogActionState[0].submitData.order_address.title || ''}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
                 </Grid>
                 <Grid item xs={3}>
+                    {t('price')}
                     <TextField
                         id="price"
                         fullWidth
                         name="price"
-                        label={t('price')}
                         value={dialogActionState[0].submitData.price || ''}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
                 </Grid>
                 <Grid item xs={3}>
+                    {t('neighborhood')}
                     <TextField
                         id="neighborhood"
                         fullWidth
                         name="neighborhood"
-                        label={t('neighborhood')}
-                        value={dialogActionState[0].submitData.neighborhood || ''}
+                        value={dialogActionState[0].submitData.neighborhood || dialogActionState[0].submitData.order_address.neighborhood || ''}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
                 </Grid>
                 <Grid item xs={3}>
+                    {t('order_date')}
                     <TextField
                         fullWidth
                         id="order_date"
@@ -113,7 +114,7 @@ const OrderForm = () => {
                 multiline
                 rows={3}
                 label={t('details')}
-                value={dialogActionState[0].submitData.details || ''}
+                value={dialogActionState[0].submitData.details || dialogActionState[0].submitData.order_address.details || ''}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />
@@ -125,7 +126,7 @@ const OrderForm = () => {
                             labelId="city"
                             id="select-city"
                             name='city_id'
-                            value={dialogActionState[0].submitData?.city_id || ''}
+                            value={dialogActionState[0].submitData?.city_id || dialogActionState[0].submitData?.order_address?.city_id || ''}
                             onChange={handleChange}
                         >
                             {
@@ -205,12 +206,12 @@ const OrderForm = () => {
                                 />
                             </Grid>
                             <Grid item xs={3}>
+                                {t('finish_date')}
                                 <TextField
                                     fullWidth
                                     type='date'
                                     id="finish_date"
                                     name="finish_date"
-                                    label={t('finish_date')}
                                     value={dialogActionState[0].submitData.finish_date || ''}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}

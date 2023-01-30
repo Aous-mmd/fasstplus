@@ -220,15 +220,20 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 }
             } else if (dialogActionState[0].status) {
                 ApiUrl = ApiList.changeOrderStatus;
+                const splitter = dialogActionState[0].submitData?.order_date.split('T');
+                let order_date;
+                if (splitter.length > 1) {
+                    order_date = `${dialogActionState[0].submitData?.order_date.split('T')[0]} ${dialogActionState[0].submitData?.order_date.split('T')[1]}:00`;
+                } else {
+                    order_date = dialogActionState[0].submitData?.order_date;
+                }
                 sendData = {
                     order_id: data.id,
                     price: dialogActionState[0].submitData?.price ? dialogActionState[0].submitData?.price : dialogActionState[0].data?.price,
                     reject_reason: dialogActionState[0].submitData?.reject_reason ? dialogActionState[0].submitData?.reject_reason : dialogActionState[0].data?.reject_reason,
-                    order_date:
-                        dialogActionState[0].submitData?.order_date?.length > 0 ?
-                            `${dialogActionState[0].submitData?.order_date.split('T')[0]} ${dialogActionState[0].submitData?.order_date.split('T')[1]}:00` : dialogActionState[0].data?.order_date,
+                    order_date,
                     finish_date:
-                        dialogActionState[0].submitData?.finish_date ? dialogActionState[0].submitData?.finish_date : dialogActionState[0].data?.finish_date,
+                        dialogActionState[0].submitData?.finish_date,
                     status: dialogActionState[0].submitData?.status ? dialogActionState[0].submitData?.status : dialogActionState[0].data?.status,
                     provider_id: dialogActionState[0].submitData?.provider_id
                 }

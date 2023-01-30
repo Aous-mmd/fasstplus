@@ -76,24 +76,26 @@ const OrderStatusForm = (props: Props) => {
                     />
                 </Grid>
                 <Grid item xs={6}>
+                    {t('order_date')}
                     <TextField
                         fullWidth
                         id="order_date"
                         name="order_date"
+                        autoFocus
                         type='datetime-local'
-                        label={t('order_date')}
                         value={dialogActionState[0].submitData.order_date || ''}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
                 </Grid>
                 <Grid item xs={6}>
+                    {t('finish_date')}
                     <TextField
                         fullWidth
                         id="finish_date"
                         name="finish_date"
+                        autoFocus
                         type='date'
-                        label={t('finish_date')}
                         value={dialogActionState[0].submitData.finish_date || ''}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
