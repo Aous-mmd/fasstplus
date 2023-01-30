@@ -296,7 +296,7 @@ const EditForm = ((props: Props) => {
                                         labelId="demo-multiple-checkbox-label"
                                         id="demo-multiple-checkbox"
                                         multiple
-                                        value={dialogActionState[0].submitData.service_providers?.map((service) => service.id)}
+                                        value={dialogActionState[0].submitData?.service_providers?.map((service) => service.id) || []}
                                         onChange={handleChange}
                                         input={<OutlinedInput label={t('Services')} />}
                                         renderValue={(selected: any) => {
@@ -305,7 +305,7 @@ const EditForm = ((props: Props) => {
                                                 if (selected.find((x: any) => x === service.id)) {
                                                     arr.push(service.default_name);
                                                 }
-                                            })
+                                            });
                                             return arr.join(", ");
                                         }}
                                         MenuProps={MenuProps}

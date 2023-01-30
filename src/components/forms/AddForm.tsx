@@ -74,7 +74,7 @@ const AddForm: React.FC<TAdd> = ({ permission, role, selectedRadio, selectedChec
     }, [formik.isValid]);
 
     const [services, setServices] = useState<any[]>();
-    const [personName, setPersonName] = React.useState<number[]>(services?.map((service) => service.id)!);
+    const [personName, setPersonName] = React.useState<number[]>([]);
 
     const handleChange = (event: SelectChangeEvent<any>) => {
         const tempArr = [...personName, ...event.target.value];
@@ -84,9 +84,9 @@ const AddForm: React.FC<TAdd> = ({ permission, role, selectedRadio, selectedChec
         setPersonName(uniqueArray);
         setDialogActionState({
             ...dialogActionState[0],
-            submitData: {
-                ...dialogActionState[0].submitData,
-                ids: [...uniqueArray]
+            data: {
+                ...dialogActionState[0].data,
+                ids: uniqueArray
             }
         });
     };
@@ -230,13 +230,7 @@ const AddForm: React.FC<TAdd> = ({ permission, role, selectedRadio, selectedChec
                                     labelId="demo-multiple-checkbox-label"
                                     id="demo-multiple-checkbox"
                                     multiple
-                                    value={
-                                        Object.keys(dialogActionState[0].submitData).length > 0 ?
-                                            dialogActionState[0].submitData?.service_providers?.length! > 0 ?
-                                                dialogActionState[0].submitData.service_providers?.map((service) => service.id) :
-                                                dialogActionState[0].data.service_providers ? dialogActionState[0].data.service_providers?.map((service) => service.id)
-                                                    : [0] : dialogActionState[0].data.service_providers ? dialogActionState[0].data.service_providers?.map((service) => service.id) : [0]
-                                    }
+                                    value={dialogActionState[0].data?.service_providers?.map((service) => service.id) || []}
                                     onChange={handleChange}
                                     input={<OutlinedInput label={t('Services')} />}
                                     renderValue={(selected: any) => {

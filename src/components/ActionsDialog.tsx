@@ -145,6 +145,12 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
             } else {
                 ApiUrl = ApiList.addProviders;
                 sendData = { ...dialogActionState[0].data };
+                setDialogActionState({ ...dialogActionState[0], submit: true });
+                await CallApi.post(ApiUrl!, { ...sendData }, { headers: { 'Content-Type': 'application/json' } }).then(res => {
+                    setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
+                }).catch(error => setDialogActionState({ ...dialogActionState[0], submit: false }));
+                resetState();
+                return;
             }
         } else if (role === 'cities') {
             if (dialogActionState[0].activate) {
