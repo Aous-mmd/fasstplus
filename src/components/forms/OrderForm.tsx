@@ -26,7 +26,7 @@ const OrderForm = () => {
     const [user_id, setuser_id] = useState<string>(dialogActionState[0].data.user_id || '');
     const [service_id, setservice_id] = useState<string>(dialogActionState[0].data.service_id || '');
     const [provider_id, setprovider_id] = useState<string>(dialogActionState[0].data.provider_id || '');
-    const [finish_date, setfinish_date] = useState<any>(dialogActionState[0].submitData.finish_date || '');
+    const [finish_date, setfinish_date] = useState<any>(dialogActionState[0].data.finish_date || '');
     useEffect(() => {
         (async () => {
             await CallApi.get(ApiList.getOrderServices).then(res => {
