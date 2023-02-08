@@ -1,6 +1,4 @@
 import React from "react";
-
-const Dashboard = React.lazy(() => import('./pages/Home'));
 const Clients = React.lazy(() => import('./pages/Users/Clients'));
 const Admins = React.lazy(() => import('./pages/Users/Admins'));
 const Services = React.lazy(() => import('./pages/Services/Services'));
@@ -11,13 +9,11 @@ const Reasons = React.lazy(() => import('./pages/Settings/Reasons'));
 const Privacy = React.lazy(() => import('./pages/Policies/Privacy'));
 const Terms = React.lazy(() => import('./pages/Policies/Terms'));
 const Orders = React.lazy(() => import('./pages/Orders/Orders'));
-const Order = React.lazy(() => import('./pages/Orders/Order'));
 const Stats = React.lazy(() => import('./pages/Stats/Stats'));
 const Notifications = React.lazy(() => import('./pages/Notifications/Notifications'));
 const Reports = React.lazy(() => import('./pages/Reports/Reports'));
 
 const routes = [
-  { path: "/dashboard", name: "Dashboard", element: Dashboard },
   { path: "/users/clients", name: "Clients", element: Clients },
   { path: "/users/admins", name: "Admins", element: Admins },
   { path: "/services", name: "Services", element: Services },
@@ -28,7 +24,6 @@ const routes = [
   { path: "/policies/privacy_policy", name: "Privacy Policy", element: Privacy },
   { path: "/policies/terms", name: "Terms", element: Terms },
   { path: "/orders", name: "Orders", element: Orders },
-  { path: "/orders/:id", name: "Order", element: Order },
   { path: "/statistics", name: "Statistics", element: Stats },
   { path: "/notifications", name: "Notifications", element: Notifications },
   { path: "/reports", name: "Reports", element: Reports},

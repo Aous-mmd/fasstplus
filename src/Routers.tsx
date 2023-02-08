@@ -22,7 +22,7 @@ const Routers = () => {
                             )
                         )
                     })}
-                    <Route path="/" element={<Navigate to="dashboard" replace />} />
+                    <Route path="/" element={<Navigate to="statistics" replace />} />
                     <Route path="*" element={<Navigate to="404" />} />
                 </Routes>
             </Box>

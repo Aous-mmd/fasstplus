@@ -39,8 +39,17 @@ const EditForm = ((props: Props) => {
     const { permission, role, selectedRadio, selectedChecked, setSelectedChecked, setSelectedRadio, setSelectedImage } = props;
     const setDialogActionState = useSetRecoilState(dialogAction);
     const { t } = useTranslation();
+    const [fullNameEdit, setFullNameEdit] = useState<string>(dialogActionState[0].data.full_name!);
+    const [phoneNumberEdit, setphoneNumberEdit] = useState<string>(dialogActionState[0].data.phone_number!);
+    const [emailEdit, setEmailEdit] = useState<string>(dialogActionState[0].data.email!);
     const formChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         if (role !== 'services') {
+            if (e.target.name === 'full_name')
+                setFullNameEdit(e.target.value);
+            else if (e.target.name === 'phone_number')
+                setphoneNumberEdit(e.target.value);
+            else if (e.target.name === 'email')
+                setEmailEdit(e.target.value);
             setDialogActionState({
                 ...dialogActionState[0],
                 submitData: {
@@ -93,17 +102,18 @@ const EditForm = ((props: Props) => {
             }
         });
     };
-
     useEffect(() => {
         if (role === 'providers') {
             CallApi.get(ApiList.getAllServices).then(res => {
                 setServices(res.data.data.services);
             })
         }
-        setDialogActionState({
-            ...dialogActionState[0],
-            submitData: { ...dialogActionState[0].data }
-        })
+        if (role !== 'client' && role !== 'admin') {
+            setDialogActionState({
+                ...dialogActionState[0],
+                submitData: { ...dialogActionState[0].data }
+            })
+        }
         // eslint-disable-next-line
     }, []);
 
@@ -120,7 +130,7 @@ const EditForm = ((props: Props) => {
                                 name="full_name"
                                 label={t('Full Name')}
                                 type='text'
-                                value={dialogActionState[0].submitData.full_name || ''}
+                                value={fullNameEdit}
                                 onChange={(e) => formChange(e)}
                                 sx={{ mb: 3 }}
                             />
@@ -204,7 +214,7 @@ const EditForm = ((props: Props) => {
                                 id="phoneNumber"
                                 name="phone_number"
                                 label={t('Phone Number')}
-                                value={dialogActionState[0].submitData.phone_number || ''}
+                                value={phoneNumberEdit}
                                 onChange={(e) => formChange(e)}
                                 sx={{ mb: 3 }}
                             />
@@ -214,10 +224,10 @@ const EditForm = ((props: Props) => {
                         role === 'admin' && (
                             <TextField
                                 fullWidth
-                                id="provider_email"
+                                id="email"
                                 name="email"
                                 label={t('Email')}
-                                value={dialogActionState[0].submitData.email || ''}
+                                value={emailEdit}
                                 onChange={(e) => formChange(e)}
                                 sx={{ mb: 3 }}
                             />

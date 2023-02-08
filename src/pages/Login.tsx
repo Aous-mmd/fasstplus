@@ -5,8 +5,9 @@ import { CallApi } from '../api/CallApi';
 import ApiList from '../api/ApiList';
 import { Loader } from '../components';
 import { useTranslation } from 'react-i18next';
-import { Avatar, Box, Button, CircularProgress, Grid, Paper, TextField, Typography } from '@mui/material';
+import { Alert, Avatar, Box, Button, CircularProgress, Grid, Paper, TextField, Typography } from '@mui/material';
 import { LockOutlined } from '@mui/icons-material';
+import axios from 'axios';
 
 
 const Login = () => {
@@ -14,7 +15,9 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   let auth = useAuth();
   const [loads, setLoads] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
   const { i18n } = useTranslation();
+  const [errMsg, setErrMsg] = useState<string>('');
   let location = useLocation();
   let from = location.state?.from?.pathname || "/";
   useEffect(() => {
@@ -49,16 +52,23 @@ const Login = () => {
     const data = new FormData(event.currentTarget);
     const email = data.get('email');
     const password = data.get('password');
-    CallApi.post(ApiList.login, {
+    axios.post(`${process.env.REACT_APP_API_URL}${ApiList.login}`, {
       email,
       password
+    }, {
+      withCredentials: true,
     }).then(async (res) => {
       localStorage.setItem('lang_id', `${res.data.data.user.lang_id}`);
       auth.signin(res.data.data.user.lang_id, () => {
         i18n.changeLanguage(res.data.data.user.lang_id === 1 ? 'ar' : res.data.data.user.lang_id === 2 ? 'en' : 'kr');
         navigate(from, { replace: true });
       });
-    }).catch((err) => setIsLoading(true))
+    }).catch((err) => {
+      setLoads(false);
+      setErrMsg(err.response.data.errors[0]);
+      setIsLoading(true);
+      setIsError(true);
+    })
   };
   return (
     <Grid container component="main" sx={{ height: '100vh' }}>
@@ -92,7 +102,7 @@ const Login = () => {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1, width: '100%' }}>
             <TextField
               margin="normal"
               required
@@ -119,10 +129,13 @@ const Login = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              {loads ? <CircularProgress /> : ''}
-              Sign In
+              {loads ? <CircularProgress sx={{ width: '20px !important', height: '20px !important', color: 'grey' }} /> : ''}
+              {"          "}Sign In
             </Button>
           </Box>
+          {isError && (
+            <Alert severity="error">{errMsg}</Alert>
+          )}
         </Box>
       </Grid>
     </Grid>

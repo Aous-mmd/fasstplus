@@ -16,7 +16,7 @@ import EditCity from './forms/EditCity';
 import OrderForm from './forms/OrderForm';
 import OrderStatusForm from './forms/OrderStatusForm';
 import NotifyForm from './forms/NotifyForm';
-
+import { toast } from 'react-toastify';
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
         children: React.ReactElement;
@@ -130,7 +130,11 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 setDialogActionState({ ...dialogActionState[0], submit: true });
                 await CallApi.delete(ApiUrl!, { data: { provider_id: data.id } }).then(res => {
                     setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
-                }).catch(error => setDialogActionState({ ...dialogActionState[0], submit: false }));
+                    toast.success(`${res.data.msg}`);
+                }).catch(error => {
+                    toast.error(`${error.response.data.msg}`);
+                    setDialogActionState({ ...dialogActionState[0], submit: false })
+                });
                 resetState();
                 return;
             } else if (dialogActionState[0].edit) {
@@ -139,7 +143,11 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 setDialogActionState({ ...dialogActionState[0], submit: true });
                 await CallApi.post(ApiUrl!, { ...sendData }, { headers: { 'Content-Type': 'application/json' } }).then(res => {
                     setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
-                }).catch(error => setDialogActionState({ ...dialogActionState[0], submit: false }));
+                    toast.success(`${res.data.msg}`);
+                }).catch(error => {
+                    toast.error(`${error.response.data.msg}`);
+                    setDialogActionState({ ...dialogActionState[0], submit: false })
+                });
                 resetState();
                 return;
             } else {
@@ -169,7 +177,11 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 setDialogActionState({ ...dialogActionState[0], submit: true });
                 await CallApi.delete(ApiUrl!, { data: { term_id: data.id } }).then(res => {
                     setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
-                }).catch(error => setDialogActionState({ ...dialogActionState[0], submit: false }));
+                    toast.success(`${res.data.msg}`);
+                }).catch(error => {
+                    toast.error(`${error.response.data.msg}`);
+                    setDialogActionState({ ...dialogActionState[0], submit: false })
+                });
                 resetState();
                 return;
             } else if (dialogActionState[0].add) {
@@ -199,7 +211,11 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 setDialogActionState({ ...dialogActionState[0], submit: true });
                 await CallApi.delete(ApiUrl!, { data: { order_id: data.id } }).then(res => {
                     setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
-                }).catch(error => setDialogActionState({ ...dialogActionState[0], submit: false }));
+                    toast.success(`${res.data.msg}`);
+                }).catch(error => {
+                    toast.error(`${error.response.data.msg}`);
+                    setDialogActionState({ ...dialogActionState[0], submit: false })
+                });
                 resetState();
                 return;
             } else if (dialogActionState[0].add) {
@@ -244,14 +260,23 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
             setDialogActionState({ ...dialogActionState[0], submit: true });
             await CallApi.post(ApiUrl!, { ...sendData }, { headers: { 'Content-Type': 'application/json' } }).then(res => {
                 setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
-            }).catch(error => setDialogActionState({ ...dialogActionState[0], submit: false }));
+                toast.success(`${res.data.msg}`);
+            }).catch(error => {
+                toast.error(`${error.response.data.msg}`);
+                setDialogActionState({ ...dialogActionState[0], submit: false })
+            });
             resetState();
             return;
         }
         setDialogActionState({ ...dialogActionState[0], submit: true });
         await CallApi.post(ApiUrl!, { ...sendData }, { headers: { "Access-Control-Allow-Origin": "*", "Content-Type": "multipart/form-data" } }).then(res => {
             setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
-        }).catch(error => setDialogActionState({ ...dialogActionState[0], submit: false }));
+            toast.success(`${res.data.msg}`);
+        }).catch(error => {
+            toast.error(`${error.response.data.msg}`);
+            setDialogActionState({ ...dialogActionState[0], submit: false })
+        }
+        );
     }
 
     const formChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -337,7 +362,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                                 {role === 'admin' ? (dialogActionState[0].add ? t('Add New Admin') : t('Edit Admin'))
                                     : (dialogActionState[0].add ? t('Add New Order') : t('Edit Order'))}
                             </Typography>
-                            <CButton disabled={!dialogActionState[0].valid && dialogActionState[0].admin} onClick={() => saveData()} title={t('Save')!} />
+                            <CButton disabled={!dialogActionState[0].valid && dialogActionState[0].admin && !dialogActionState[0].edit_role} onClick={() => saveData()} title={t('Save')!} />
                         </Toolbar>
                     </AppBar>
                 )

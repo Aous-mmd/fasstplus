@@ -1,5 +1,5 @@
 import React from "react";
-import { Language, Home, Settings, SupportAgent, Report } from "@mui/icons-material";
+import { Language, Settings, SupportAgent, Report } from "@mui/icons-material";
 import { TMenu } from "./types";
 import { useTranslation } from 'react-i18next';
 
@@ -8,9 +8,9 @@ export const _Nav = (): TMenu[] => {
     const { t } = useTranslation();
     return [
         {
-            name: t("Dashboard"),
-            to: "/dashboard",
-            icon: <Home />,
+            name: t("Statistics"),
+            to: "/statistics",
+            icon: <Report />,
         },
         {
             name: t("Users"),
@@ -93,11 +93,6 @@ export const _Nav = (): TMenu[] => {
         {
             name: t("Notifications"),
             to: "/notifications",
-            icon: <Report />,
-        },
-        {
-            name: t("Statistics"),
-            to: "/statistics",
             icon: <Report />,
         },
         {

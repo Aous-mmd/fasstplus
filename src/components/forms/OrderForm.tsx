@@ -15,6 +15,18 @@ const OrderForm = () => {
     const [cities, setCities] = useState<any>();
     const [users, setUsers] = useState<any>();
     const [services, setServices] = useState<any>();
+
+    const [title, setTitle] = useState<string>('');
+    const [neighbrhood, setNeighbrhood] = useState<string>('');
+    const [price, setPrice] = useState<string>(dialogActionState[0].data.price || '');
+    const [order_date, setOrder_date] = useState<any>(dialogActionState[0].data.order_date || '');
+    const [details, setDetails] = useState<string>('');
+    const [city_id, setCity_id] = useState<string>('');
+    const [note, setNote] = useState<string>(dialogActionState[0].data.note || '');
+    const [user_id, setuser_id] = useState<string>(dialogActionState[0].data.user_id || '');
+    const [service_id, setservice_id] = useState<string>(dialogActionState[0].data.service_id || '');
+    const [provider_id, setprovider_id] = useState<string>(dialogActionState[0].data.provider_id || '');
+    const [finish_date, setfinish_date] = useState<any>(dialogActionState[0].submitData.finish_date || '');
     useEffect(() => {
         (async () => {
             await CallApi.get(ApiList.getOrderServices).then(res => {
@@ -27,12 +39,45 @@ const OrderForm = () => {
                 setCities(res.data.data.cities);
             });
         })();
-        setDialogActionState({
-            ...dialogActionState[0],
-            submitData: { ...dialogActionState[0].data }
-        })
-    }, [])
+        if (Object.keys(dialogActionState[0].data).length > 0) {
+            console.log(dialogActionState[0].data)
+            if (dialogActionState[0].data?.title!)
+                setTitle(dialogActionState[0].data.title)
+            else setTitle(dialogActionState[0].data.order_address.title);
+            if (dialogActionState[0].data.neighborhood)
+                setNeighbrhood(dialogActionState[0].data.neighborhood);
+            else setNeighbrhood(dialogActionState[0].data.order_address.neighborhood);
+            if (dialogActionState[0].data.details)
+                setDetails(dialogActionState[0].data.details);
+            else setDetails(dialogActionState[0].data.order_address.details);
+            if (dialogActionState[0].data.city_id)
+                setCity_id(dialogActionState[0].data.city_id);
+            else setCity_id(dialogActionState[0].data.order_address.city_id);
+        }
+    }, []);
     const formChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+        if (e.target.name === 'title')
+            setTitle(e.target.value);
+        else if (e.target.name === 'price')
+            setPrice(e.target.value);
+        else if (e.target.name === 'neighborhood')
+            setNeighbrhood(e.target.value);
+        else if (e.target.name === 'order_date')
+            setOrder_date(e.target.value);
+        else if (e.target.name === 'details')
+            setDetails(e.target.value);
+        else if (e.target.name === 'city_id')
+            setCity_id(e.target.value);
+        else if (e.target.name === 'user_id')
+            setuser_id(e.target.value);
+        else if (e.target.name === 'service_id')
+            setservice_id(e.target.value);
+        else if (e.target.name === 'provider_id')
+            setprovider_id(e.target.value);
+        else if (e.target.name === 'note')
+            setNote(e.target.value);
+        else if (e.target.name === 'finish_date')
+            setfinish_date(e.target.value);
         setDialogActionState({
             ...dialogActionState[0],
             submitData: {
@@ -44,7 +89,14 @@ const OrderForm = () => {
 
 
     const handleChange = async (event: SelectChangeEvent) => {
+        if (event.target.name === 'city_id')
+            setCity_id(event.target.value);
+        if (event.target.name === 'user_id')
+            setuser_id(event.target.value);
+        if (event.target.name === 'provider_id')
+            setprovider_id(event.target.value);
         if (event.target.name === 'service_id') {
+            setservice_id(event.target.value);
             await CallApi.get(ApiList.getOrderProviders, { params: { service_id: event.target.value } }).then(response => setProvider(response.data.data.providers));
         }
         setDialogActionState({
@@ -67,7 +119,7 @@ const OrderForm = () => {
                         fullWidth
                         id="title"
                         name="title"
-                        value={dialogActionState[0].submitData.title || dialogActionState[0].submitData.order_address.title || ''}
+                        value={title}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -78,7 +130,7 @@ const OrderForm = () => {
                         id="price"
                         fullWidth
                         name="price"
-                        value={dialogActionState[0].submitData.price || ''}
+                        value={price}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -89,7 +141,7 @@ const OrderForm = () => {
                         id="neighborhood"
                         fullWidth
                         name="neighborhood"
-                        value={dialogActionState[0].submitData.neighborhood || dialogActionState[0].submitData.order_address.neighborhood || ''}
+                        value={neighbrhood}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -101,7 +153,7 @@ const OrderForm = () => {
                         id="order_date"
                         name="order_date"
                         type='datetime-local'
-                        value={dialogActionState[0].submitData.order_date || ''}
+                        value={order_date}
                         onChange={(e) => formChange(e)}
                         sx={{ mb: 3 }}
                     />
@@ -114,7 +166,7 @@ const OrderForm = () => {
                 multiline
                 rows={3}
                 label={t('details')}
-                value={dialogActionState[0].submitData.details || dialogActionState[0].submitData.order_address.details || ''}
+                value={details}
                 onChange={(e) => formChange(e)}
                 sx={{ mb: 3 }}
             />
@@ -126,7 +178,7 @@ const OrderForm = () => {
                             labelId="city"
                             id="select-city"
                             name='city_id'
-                            value={dialogActionState[0].submitData?.city_id || dialogActionState[0].submitData?.order_address?.city_id || ''}
+                            value={city_id}
                             onChange={handleChange}
                         >
                             {
@@ -142,7 +194,7 @@ const OrderForm = () => {
                             labelId="user"
                             id="select-user"
                             name='user_id'
-                            value={dialogActionState[0].submitData?.user_id || ''}
+                            value={user_id}
                             onChange={handleChange}
                         >
                             {
@@ -158,7 +210,7 @@ const OrderForm = () => {
                             labelId="service"
                             id="select-service"
                             name='service_id'
-                            value={dialogActionState[0].submitData?.service_id || ''}
+                            value={service_id}
                             onChange={handleChange}
                         >
                             {
@@ -175,7 +227,7 @@ const OrderForm = () => {
                             id="select-provider"
                             disabled={providers?.length > 0 ? false : !providers ? false : true}
                             name='provider_id'
-                            value={dialogActionState[0].submitData?.provider_id || ''}
+                            value={provider_id}
                             onChange={handleChange}
                         >
                             {
@@ -200,7 +252,7 @@ const OrderForm = () => {
                                     multiline
                                     rows={3}
                                     label={t('note')}
-                                    value={dialogActionState[0].submitData.note || ''}
+                                    value={note}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
@@ -212,7 +264,7 @@ const OrderForm = () => {
                                     type='date'
                                     id="finish_date"
                                     name="finish_date"
-                                    value={dialogActionState[0].submitData.finish_date || ''}
+                                    value={finish_date}
                                     onChange={(e) => formChange(e)}
                                     sx={{ mb: 3 }}
                                 />
