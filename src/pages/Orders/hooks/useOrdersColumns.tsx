@@ -44,7 +44,7 @@ const useOrdersColumns = (): GridColumns => {
             flex: 0.09,
             hideable: true,
             renderCell: (params) => {
-                return <div>{params.row.order_address.city_id}</div>
+                return <div>{params.row.order_address.city_name}</div>
             }
         },
         {
