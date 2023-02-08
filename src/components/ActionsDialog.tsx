@@ -232,7 +232,8 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                     order_address_id: dialogActionState[0].data.order_address.id,
                     order_date:
                         dialogActionState[0].submitData?.order_date?.length > 0 ?
-                            `${dialogActionState[0].submitData?.order_date.split('T')[0]} ${dialogActionState[0].submitData?.order_date.split('T')[1]}:00` : dialogActionState[0].data?.order_date
+                            `${dialogActionState[0].submitData?.order_date.split('T')[0]}` :
+                            dialogActionState[0].data?.order_date
                 }
             } else if (dialogActionState[0].status) {
                 ApiUrl = ApiList.changeOrderStatus;
