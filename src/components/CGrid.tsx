@@ -25,6 +25,7 @@ type Props = {
     startDate?: any;
     endDate?: any;
     custom?: boolean;
+    place?: string;
 }
 
 function CustomToolbar() {
@@ -35,7 +36,7 @@ function CustomToolbar() {
     );
 }
 
-const CGrid: React.FC<Props> = ({ url, custom, columns, startDate, endDate, addButton, addButtonTitle, role, status, users, cities, reasons, providers, orders }) => {
+const CGrid: React.FC<Props> = ({ url, custom, place, columns, startDate, endDate, addButton, addButtonTitle, role, status, users, cities, reasons, providers, orders }) => {
     const theme = useTheme();
     const colors = colorsTheme(theme.palette.mode);
     const setDialogActionState = useSetRecoilState(dialogAction);
@@ -43,9 +44,9 @@ const CGrid: React.FC<Props> = ({ url, custom, columns, startDate, endDate, addB
     const [pageSize, setPageSize] = useState(10);
     const dialogActionState = useRecoilState(dialogAction);
     const [page, setPage] = React.useState(0);
-    const [value, setValue] = React.useState<number>(role === 'orders' ? 4 : users ? 0 : 2);
+    const [value, setValue] = React.useState<number>(role === 'orders' ? 4 : users || place === 'users' ? 0 : place === 'orders' ? 4 : 2);
     const [Cstatus, setCstatus] = React.useState<number>(
-        role === 'orders' ? 4 : users ? 0 : 2
+        role === 'orders' ? 4 : users || place === 'users' ? 0 : place === 'orders' ? 4 : 2
     );
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setCstatus(parseInt((event.target as HTMLInputElement).value));
@@ -68,7 +69,7 @@ const CGrid: React.FC<Props> = ({ url, custom, columns, startDate, endDate, addB
             <Box width='100%' mb={1} display='flex' justifyContent='space-between' alignItems='center'>
                 <FormControl>
                     {
-                        (users || role === 'reports') && (
+                        (users) && (
                             <>
                                 <FormLabel id="demo-controlled-radio-buttons-group">{t('Filter')}</FormLabel>
                                 <RadioGroup
@@ -123,6 +124,53 @@ const CGrid: React.FC<Props> = ({ url, custom, columns, startDate, endDate, addB
                                 </RadioGroup>
                             </>
                         )
+                    }
+                    {
+                        role === 'reports' ?
+                            place === 'users' ? <>
+                                <FormLabel id="demo-controlled-radio-buttons-group">{t('Filter')}</FormLabel>
+                                <RadioGroup
+                                    aria-labelledby="demo-controlled-radio-buttons-group"
+                                    name="controlled-radio-buttons-group"
+                                    value={value}
+                                    row
+                                    onChange={handleChange}
+                                >
+                                    <FormControlLabel value={0} control={<Radio />} label={t('All')} />
+                                    <FormControlLabel value={1} control={<Radio />} label={t('showActive')} />
+                                    <FormControlLabel value={2} control={<Radio />} label={t('showunActive')} />
+                                    <FormControlLabel value={3} control={<Radio />} label={t('Blocked')} />
+                                </RadioGroup>
+                            </> : place === 'providers' ? <>
+                                <FormLabel id="demo-controlled-radio-buttons-group">{t('Filter')}</FormLabel>
+                                <RadioGroup
+                                    aria-labelledby="demo-controlled-radio-buttons-group"
+                                    name="controlled-radio-buttons-group"
+                                    value={value}
+                                    row
+                                    onChange={handleChange}
+                                >
+                                    <FormControlLabel value={2} control={<Radio />} label={t('All')} />
+                                    <FormControlLabel value={0} control={<Radio />} label={t('showActive')} />
+                                    <FormControlLabel value={1} control={<Radio />} label={t('showunActive')} />
+                                </RadioGroup>
+                            </> : <>
+                                <FormLabel id="demo-controlled-radio-buttons-group">{t('Filter')}</FormLabel>
+                                <RadioGroup
+                                    aria-labelledby="demo-controlled-radio-buttons-group"
+                                    name="controlled-radio-buttons-group"
+                                    value={value}
+                                    row
+                                    onChange={handleChange}
+                                >
+                                    <FormControlLabel value={4} control={<Radio />} label={t('All')} />
+                                    <FormControlLabel value={0} control={<Radio />} label={t('Done')} />
+                                    <FormControlLabel value={1} control={<Radio />} label={t('Pending')} />
+                                    <FormControlLabel value={2} control={<Radio />} label={t('Canceled')} />
+                                    <FormControlLabel value={3} control={<Radio />} label={t('Approved')} />
+                                </RadioGroup>
+                            </>
+                            : <></>
                     }
                 </FormControl>
                 {

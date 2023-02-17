@@ -4,7 +4,7 @@ import useReportsColumn from './hooks/useReportsColumn'
 import ApiList from '../../api/ApiList'
 import useReportsOrderColumns from './hooks/useReportsOrderColumns';
 import useReportsProviderColumns from './hooks/useReportsProviderColumns';
-import { Grid, TextField } from '@mui/material';
+import { Grid, TextField, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
 type Props = {}
@@ -40,6 +40,7 @@ const Reports = (props: Props) => {
                 />
             </Grid>
             <Grid item xs={12} mb={5} minHeight='350px'>
+                <Typography variant='h6'>{t('Users')}</Typography>
                 <CGrid
                     startDate={startDate}
                     endDate={endDate}
@@ -47,9 +48,11 @@ const Reports = (props: Props) => {
                     columns={columns}
                     url={ApiList.getUsersreport}
                     custom
+                    place='users'
                 />
             </Grid>
-            <Grid item xs={12} mb={5} minHeight='350px'>
+            <Grid item xs={12} mt={6} mb={5} minHeight='350px'>
+                <Typography variant='h6'>{t('Orders')}</Typography>
                 <CGrid
                     startDate={startDate}
                     endDate={endDate}
@@ -57,9 +60,11 @@ const Reports = (props: Props) => {
                     columns={columnsorder}
                     url={ApiList.getOrdersreport}
                     custom
+                    place='orders'
                 />
             </Grid>
-            <Grid item xs={12} mb={5} minHeight='350px'>
+            <Grid item xs={12} mt={6} mb={5} minHeight='350px'>
+                <Typography variant='h6'>{t('Provider')}</Typography>
                 <CGrid
                     startDate={startDate}
                     endDate={endDate}
@@ -67,6 +72,7 @@ const Reports = (props: Props) => {
                     columns={columnsprovider}
                     url={ApiList.getProvidersReport}
                     custom
+                    place='providers'
                 />
             </Grid>
         </Grid>
