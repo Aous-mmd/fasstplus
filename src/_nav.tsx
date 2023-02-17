@@ -1,5 +1,19 @@
 import React from "react";
-import { Language, Settings, SupportAgent, Report } from "@mui/icons-material";
+import { 
+    Language,
+    Settings,
+    DataSaverOff,
+    Report,
+    Summarize,
+    Notifications,
+    LocalShipping,
+    Policy,
+    Article,
+    LocationCity,
+    Info,
+    DesignServices,
+    People
+} from "@mui/icons-material";
 import { TMenu } from "./types";
 import { useTranslation } from 'react-i18next';
 
@@ -10,39 +24,39 @@ export const _Nav = (): TMenu[] => {
         {
             name: t("Statistics"),
             to: "/statistics",
-            icon: <Report />,
+            icon: <DataSaverOff />,
         },
         {
             name: t("Users"),
             to: "",
-            icon: <Language />,
+            icon: <People />,
             items: [
                 {
                     name: t("Clients"),
                     to: "/users/clients",
-                    icon: <Language />,
+                    icon: <People />,
                 },
                 {
                     name: t("Admins"),
                     to: "/users/admins",
-                    icon: <Language />,
+                    icon: <People />,
                 },
             ],
         },
         {
             name: t("Services"),
             to: '',
-            icon: <Settings />,
+            icon: <DesignServices />,
             items: [
                 {
                     name: t("Services"),
                     to: "/services",
-                    icon: <Settings />,
+                    icon: <DesignServices />,
                 },
                 {
                     name: t("Services Provider"),
                     to: "/services/providers",
-                    icon: <SupportAgent />,
+                    icon: <DesignServices />,
                 },
             ],
         },
@@ -54,51 +68,51 @@ export const _Nav = (): TMenu[] => {
                 {
                     name: t("Company Info"),
                     to: "/settings/company_info",
-                    icon: <Settings />,
+                    icon: <Info />,
                 },
                 {
                     name: t("Cities"),
                     to: "/settings/cities",
-                    icon: <Settings />,
+                    icon: <LocationCity />,
                 },
                 {
                     name: t("Reasons"),
                     to: "/settings/reasons",
-                    icon: <SupportAgent />,
+                    icon: <Article />,
                 },
             ],
         },
         {
             name: t("Policies"),
             to: '',
-            icon: <Settings />,
+            icon: <Policy />,
             items: [
                 {
                     name: t("Privacy Policy"),
                     to: "/policies/privacy_policy",
-                    icon: <Settings />,
+                    icon: <Policy />,
                 },
                 {
                     name: t("terms"),
                     to: "/policies/terms",
-                    icon: <Settings />,
+                    icon: <Policy />,
                 },
             ],
         },
         {
             name: t("Orders"),
             to: "/orders",
-            icon: <Report />,
+            icon: <LocalShipping />,
         },
         {
             name: t("Notifications"),
             to: "/notifications",
-            icon: <Report />,
+            icon: <Notifications />,
         },
         {
             name: t("Reports"),
             to: "/reports",
-            icon: <Report />,
+            icon: <Summarize />,
         },
     ];
 }
