@@ -26,6 +26,7 @@
     "Reasons": "Reasons",
     "Full Name": "Full Name",
     "Phone Number": "Phone Number",
+    "Block": "Block",
     "Verification Code": "Verification Code",
     "Active": "Active",
     "Block/UnBlock": "Block/UnBlock",
@@ -128,5 +129,7 @@
     "start_date": "Start Date",
     "end_date": "End Date",
     "export": "Export",
-    "Logout": "Logout"
+    "Export": "Export",
+    "Logout": "Logout",
+    "old_Password": "Old Password"
 }

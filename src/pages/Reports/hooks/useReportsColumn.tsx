@@ -18,7 +18,7 @@ const useReportsColumns = (): GridColumns => {
         },
         {
             field: 'phone_number',
-            headerName: t('Number')!,
+            headerName: t('Phone Number')!,
             minWidth: 200,
             flex: 0.1,
             hideable: true
