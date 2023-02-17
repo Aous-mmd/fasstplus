@@ -127,5 +127,6 @@
     "specific_user": "Specific User",
     "start_date": "Start Date",
     "end_date": "End Date",
-    "export": "Export"
+    "export": "Export",
+    "Logout": "Logout"
 }

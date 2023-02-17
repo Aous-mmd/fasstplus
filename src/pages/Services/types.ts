@@ -11,7 +11,7 @@ export type TProvidersData = {
 
 export type Provider = {
     id: number;
-    company_name: string;
+    company_name: string | null;
     provider_email: string;
     first_name: string;
     second_name: string;

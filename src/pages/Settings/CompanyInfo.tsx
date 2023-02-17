@@ -17,6 +17,7 @@ const CompanyInfo = () => {
     const dialogActionState = useRecoilState(dialogAction);
     const Schema = Yup.object().shape({
         email: Yup.string().email(t('Invalid email')!).required(t('This field is required')!),
+        phone_number: Yup.string().required(t('This field is required')!),
     });
     const { data, isSuccess } = useFetchData(ApiList.getCompanyInfo);
     const formik = useFormik({

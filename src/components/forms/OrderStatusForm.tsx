@@ -13,9 +13,7 @@ const OrderStatusForm = (props: Props) => {
     const setDialogActionState = useSetRecoilState(dialogAction);
     const { t } = useTranslation();
     const [providers, setProvider] = useState<any>();
-    const [cities, setCities] = useState<any>();
-    const [users, setUsers] = useState<any>();
-    const [services, setServices] = useState<any>();
+
     useEffect(() => {
         (async () => {
             await CallApi.get(ApiList.getOrderProviders, { params: { service_id: dialogActionState[0].data?.service_id } }).then(response => setProvider(response.data.data.providers));
@@ -26,6 +24,7 @@ const OrderStatusForm = (props: Props) => {
         });
     }, [])
     const formChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+
         setDialogActionState({
             ...dialogActionState[0],
             submitData: {
@@ -37,13 +36,25 @@ const OrderStatusForm = (props: Props) => {
 
 
     const handleChange = async (event: SelectChangeEvent) => {
-        setDialogActionState({
-            ...dialogActionState[0],
-            submitData: {
-                ...dialogActionState[0].submitData,
-                [event.target.name]: event.target.value,
-            }
-        });
+        if (event.target.value === 'Approved') {
+            setDialogActionState({
+                ...dialogActionState[0],
+                submitData: {
+                    ...dialogActionState[0].submitData,
+                    [event.target.name]: event.target.value,
+                    reject_reason: null,
+                }
+            });
+        }
+        else {
+            setDialogActionState({
+                ...dialogActionState[0],
+                submitData: {
+                    ...dialogActionState[0].submitData,
+                    [event.target.name]: event.target.value,
+                }
+            });
+        }
     };
 
     return (

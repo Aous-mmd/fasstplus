@@ -132,31 +132,34 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                     setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
                     toast.success(`${res.data.msg}`);
                 }).catch(error => {
-                    toast.error(`${error.response.data.msg}`);
+                    error.response.data.errors.forEach((err: string) => toast.error(err))
                     setDialogActionState({ ...dialogActionState[0], submit: false })
                 });
                 resetState();
                 return;
             } else if (dialogActionState[0].edit) {
                 ApiUrl = ApiList.editProviders;
-                sendData = { ...dialogActionState[0].submitData, provider_id: data.id };
+                sendData = { ...dialogActionState[0].submitData, provider_id: data.id, company_name: dialogActionState[0].submitData.company_name?.length === 0 ? null : dialogActionState[0].submitData.company_name };
                 setDialogActionState({ ...dialogActionState[0], submit: true });
                 await CallApi.post(ApiUrl!, { ...sendData }, { headers: { 'Content-Type': 'application/json' } }).then(res => {
                     setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
                     toast.success(`${res.data.msg}`);
                 }).catch(error => {
-                    toast.error(`${error.response.data.msg}`);
+                    error.response.data.errors.forEach((err: string) => toast.error(err))
                     setDialogActionState({ ...dialogActionState[0], submit: false })
                 });
                 resetState();
                 return;
             } else {
                 ApiUrl = ApiList.addProviders;
-                sendData = { ...dialogActionState[0].data };
+                sendData = { ...dialogActionState[0].data, company_name: dialogActionState[0].data.company_name?.length === 0 ? null : dialogActionState[0].data.company_name };
                 setDialogActionState({ ...dialogActionState[0], submit: true });
                 await CallApi.post(ApiUrl!, { ...sendData }, { headers: { 'Content-Type': 'application/json' } }).then(res => {
                     setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
-                }).catch(error => setDialogActionState({ ...dialogActionState[0], submit: false }));
+                }).catch(error => {
+                    error.response.data.errors.forEach((err: string) => toast.error(err))
+                    setDialogActionState({ ...dialogActionState[0], submit: false })
+                });
                 resetState();
                 return;
             }
@@ -179,7 +182,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                     setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
                     toast.success(`${res.data.msg}`);
                 }).catch(error => {
-                    toast.error(`${error.response.data.msg}`);
+                    error.response.data.errors.forEach((err: string) => toast.error(err))
                     setDialogActionState({ ...dialogActionState[0], submit: false })
                 });
                 resetState();
@@ -213,7 +216,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                     setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
                     toast.success(`${res.data.msg}`);
                 }).catch(error => {
-                    toast.error(`${error.response.data.msg}`);
+                    error.response.data.errors.forEach((err: string) => toast.error(err))
                     setDialogActionState({ ...dialogActionState[0], submit: false })
                 });
                 resetState();
@@ -227,17 +230,23 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 }
             } else if (dialogActionState[0].edit) {
                 ApiUrl = ApiList.editOrder;
+                let splittedDate = '';
+                if (dialogActionState[0].submitData?.order_date?.length) {
+                    if (dialogActionState[0].submitData?.order_date.split('T').length > 1) {
+                        splittedDate = `${dialogActionState[0].submitData?.order_date.split('T')[0]} ${dialogActionState[0].submitData?.order_date.split('T')[1]}:00`;
+                    }
+                }
                 sendData = {
                     order_id: data.id, ...dialogActionState[0].submitData,
                     order_address_id: dialogActionState[0].data.order_address.id,
                     order_date:
-                        dialogActionState[0].submitData?.order_date?.length > 0 ?
-                            `${dialogActionState[0].submitData?.order_date.split('T')[0]}` :
+                        splittedDate?.length > 0 ?
+                            splittedDate :
                             dialogActionState[0].data?.order_date
                 }
             } else if (dialogActionState[0].status) {
                 ApiUrl = ApiList.changeOrderStatus;
-                const splitter = dialogActionState[0].submitData?.order_date.split('T');
+                const splitter = dialogActionState[0].submitData?.order_date?.split('T');
                 let order_date;
                 if (splitter.length > 1) {
                     order_date = `${dialogActionState[0].submitData?.order_date.split('T')[0]} ${dialogActionState[0].submitData?.order_date.split('T')[1]}:00`;
@@ -263,7 +272,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                 setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
                 toast.success(`${res.data.msg}`);
             }).catch(error => {
-                toast.error(`${error.response.data.msg}`);
+                error.response.data.errors.forEach((err: string) => toast.error(err))
                 setDialogActionState({ ...dialogActionState[0], submit: false })
             });
             resetState();
@@ -274,7 +283,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
             setDialogActionState({ ...dialogActionState[0], submit: false, open: false, isSuccess: true });
             toast.success(`${res.data.msg}`);
         }).catch(error => {
-            toast.error(`${error.response.data.msg}`);
+            error.response.data.errors.forEach((err: string) => toast.error(err))
             setDialogActionState({ ...dialogActionState[0], submit: false })
         }
         );
@@ -419,7 +428,7 @@ export const ActionsDialog: React.FC<Props> = ({ role }) => {
                         )
                     }
                     {
-                        (role === 'orders' && !dialogActionState[0].status) && (
+                        (role === 'orders' && !dialogActionState[0].status && !dialogActionState[0].delete) && (
                             <OrderForm />
                         )
                     }

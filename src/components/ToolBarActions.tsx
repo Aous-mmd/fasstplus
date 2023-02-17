@@ -111,7 +111,7 @@ const ToolBarActions: React.FC<Props> = ({ params, deletes, role }) => {
                                 orders: false,
                             })}>
                                 <Block
-                                    sx={!params.block ? { '& path': { color: '#d32f2f !important' } } : {}}
+                                    sx={!params.block ? {} : { '& path': { color: '#d32f2f !important' } }}
                                 />
                             </IconButton>
                         </Tooltip>

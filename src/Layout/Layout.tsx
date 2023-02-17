@@ -23,7 +23,10 @@ const Layout = () => {
             setTopWidth(window.screen.width - 80);
         }
         else {
-            setTopWidth(window.screen.width - 240);
+            setTopWidth(window.screen.width - 250);
+        }
+        return () => {
+            setTopWidth(0);
         }
     }, [isCollapsed]);
 

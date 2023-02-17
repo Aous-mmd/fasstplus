@@ -104,7 +104,7 @@ type OptionalData = {
     order_address?: any;
     finish_date?: any;
     note?: string;
-    reject_reason?: string;
+    reject_reason?: string | null;
     status?: string;
 }
 

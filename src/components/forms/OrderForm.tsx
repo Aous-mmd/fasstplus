@@ -40,7 +40,6 @@ const OrderForm = () => {
             });
         })();
         if (Object.keys(dialogActionState[0].data).length > 0) {
-            console.log(dialogActionState[0].data)
             if (dialogActionState[0].data?.title!)
                 setTitle(dialogActionState[0].data.title)
             else setTitle(dialogActionState[0].data.order_address.title);
