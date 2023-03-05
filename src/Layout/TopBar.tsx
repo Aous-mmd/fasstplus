@@ -85,12 +85,12 @@ const TopBar = (props: Props) => {
             right: i18n.language === 'ar' || i18n.language === 'kr' ? window.screen.width - props.width : '0',
             transition: 'all 0.5s ease-in-out', width: props.width
         }} justifyContent='space-between' p={2} width="100%" height='10%'>
-            <Box display='flex' sx={{ backgroundColor: colors.Primary[600] }} borderRadius="5px">
+            {/* <Box display='flex' sx={{ backgroundColor: colors.Primary[600] }} borderRadius="5px">
                 <InputBase sx={{ marginInlineStart: 2, flex: 1, color: colors.Primary[100] }} placeholder={t('Search')!} />
                 <IconButton type='button' sx={{ p: 1 }}>
                     <Search sx={{ color: colors.Primary[100] }} />
                 </IconButton>
-            </Box>
+            </Box> */}
             <Box display='flex'>
                 <IconButton onClick={colorMode.toggleColorMode}>
                     {theme.palette.mode === 'light' ?
